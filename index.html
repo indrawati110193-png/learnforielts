@@ -1,0 +1,2006 @@
+<!DOCTYPE html><html lang="id"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>IELTS Scholar Study Hub — Tracker &amp; Rencana Belajar Mandiri</title>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            surface: "#fbf9f5",
+            "surface-dim": "#f3ede3",
+            "surface-card": "#ffffff",
+            "surface-border": "#e6dfd5",
+            primary: {
+              DEFAULT: "#1b4332",
+              hover: "#143326",
+              light: "#2d6a4f",
+              soft: "#e8f2ec",
+              subtle: "#d8ebd0"
+            },
+            secondary: "#40916c",
+            accent: "#74c69d",
+            ink: {
+              DEFAULT: "#1e293b",
+              muted: "#475569",
+              faint: "#64748b"
+            }
+          },
+          fontFamily: {
+            serif: ["Merriweather", "Georgia", "serif"],
+            sans: ["'Plus Jakarta Sans'", "-apple-system", "BlinkMacSystemFont", "sans-serif"]
+          }
+        }
+      }
+    };
+  </script>
+<style>
+    body {
+      background-color: #fbf9f5;
+      color: #1e293b;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .serif-title {
+      font-family: 'Merriweather', Georgia, serif;
+    }
+    /* Custom scrollbar clean & minimal */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #fbf9f5;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #d1c7b7;
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-emerald-100 selection:text-emerald-900">
+<!-- TOP HEADER / SCHOLAR BANNER -->
+<header class="border-b border-[#e6dfd5] bg-[#ffffff] sticky top-0 z-40 shadow-xs">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-16">
+<div class="flex items-center gap-3">
+<span class="w-9 h-9 rounded-lg bg-primary text-white flex items-center justify-center font-serif text-lg font-bold shadow-xs">
+            I
+          </span>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-serif text-lg font-bold tracking-tight text-primary leading-none">IELTS Scholar Study Hub</span>
+<span class="hidden sm:inline-block text-[11px] font-sans font-medium px-2 py-0.5 rounded border border-[#d8ebd0] bg-[#f0f8f2] text-primary">Akademik &amp; GT</span>
+</div>
+<p class="text-[11px] text-ink-faint font-sans mt-0.5 hidden sm:block">Perencana Belajar Mandiri &amp; Buku Jurnal Refleksi Harian</p>
+</div>
+</div>
+<!-- Sync Indicator & Quick Actions -->
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border border-amber-200 bg-amber-50 text-amber-800 transition-all" id="syncBadge">
+<span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+<span id="syncStatusText" class="">Penyimpanan Lokal Aktif</span>
+</div>
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg text-primary border border-surface-border bg-surface hover:bg-surface-dim transition-colors" onclick="switchTab('supabase')" title="Pengaturan Cloud Sync Supabase">
+<span class="material-symbols-outlined text-base">cloud_sync</span>
+<span class="hidden md:inline">Sinkronisasi Cloud</span>
+</button>
+</div>
+</div>
+<!-- MAIN NAVIGATION TABS (6 BAGIAN) -->
+<nav aria-label="Tabs Navigasi" class="flex space-x-1 sm:space-x-2 overflow-x-auto py-2 -mb-px border-t border-stone-100 text-xs font-medium no-scrollbar">
+<button class="tab-btn flex items-center gap-1.5 px-3 py-2 rounded-lg transition-colors whitespace-nowrap bg-primary text-white" id="tab-btn-overview" onclick="switchTab('overview')">
+<span class="material-symbols-outlined text-[17px]">dashboard</span>
+<span class="">1. Ringkasan &amp; Dashboard</span>
+</button>
+<button class="tab-btn flex items-center gap-1.5 px-3 py-2 rounded-lg transition-colors hover:text-ink hover:bg-stone-100 whitespace-nowrap text-ink-muted" id="tab-btn-checklist" onclick="switchTab('checklist')">
+<span class="material-symbols-outlined text-[17px]">checklist</span>
+<span class="">2. Rencana 8 Minggu</span>
+</button>
+<button class="tab-btn flex items-center gap-1.5 px-3 py-2 rounded-lg transition-colors hover:text-ink hover:bg-stone-100 whitespace-nowrap text-ink-muted" id="tab-btn-journal" onclick="switchTab('journal')">
+<span class="material-symbols-outlined text-[17px]">menu_book</span>
+<span class="">3. Jurnal &amp; Refleksi</span>
+</button>
+<button class="tab-btn flex items-center gap-1.5 px-3 py-2 rounded-lg transition-colors hover:text-ink hover:bg-stone-100 whitespace-nowrap text-ink-muted" id="tab-btn-official-materials" onclick="switchTab('official-materials')">
+<span class="material-symbols-outlined text-[17px]">verified</span>
+<span class="">4. Materi Resmi IELTS</span>
+</button>
+<button class="tab-btn flex items-center gap-1.5 px-3 py-2 rounded-lg transition-colors hover:text-ink hover:bg-stone-100 whitespace-nowrap text-ink-muted" id="tab-btn-speaking-prediction" onclick="switchTab('speaking-prediction')">
+<span class="material-symbols-outlined text-[17px]">record_voice_over</span>
+<span class="">5. Prediksi Speaking 2026</span>
+</button>
+<button class="tab-btn flex items-center gap-1.5 px-3 py-2 rounded-lg transition-colors hover:text-ink hover:bg-stone-100 whitespace-nowrap text-ink-muted" id="tab-btn-supabase" onclick="switchTab('supabase')">
+<span class="material-symbols-outlined text-[17px]">database</span>
+<span class="">6. Pengaturan Cloud</span>
+</button>
+</nav>
+</div>
+</header>
+<!-- MAIN WRAPPER -->
+<main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+<!-- ========================================== -->
+<!-- BAGIAN 1: RINGKASAN & DASHBOARD PROGRES   -->
+<!-- ========================================== -->
+<section class="tab-content block space-y-6" id="section-overview">
+<!-- Personalized Welcome Banner -->
+<div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#1b4332] via-[#245b43] to-[#40916c] px-6 py-6 sm:px-8 sm:py-7 text-white shadow-sm">
+  <div class="relative z-10 max-w-3xl">
+    <div class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-semibold tracking-wide text-emerald-50">
+      <span class="material-symbols-outlined text-sm">waving_hand</span> WELCOME TO YOUR IELTS JOURNEY
+    </div>
+    <h2 class="serif-title mt-3 text-2xl sm:text-3xl font-bold tracking-tight">Selamat datang, Indrawati!</h2>
+    <p class="mt-2 max-w-2xl text-sm leading-relaxed text-emerald-50/95">Senang melihatmu kembali. Mari bangun kemampuan IELTS sedikit demi sedikit—mulai dari satu latihan, satu evaluasi, dan satu kemajuan hari ini.</p>
+    <div class="mt-4 flex flex-wrap items-center gap-2 text-xs font-semibold">
+      <span class="inline-flex items-center gap-1.5 rounded-lg bg-white/15 px-3 py-2"><span class="material-symbols-outlined text-sm">school</span> Your learning space</span>
+      <span class="inline-flex items-center gap-1.5 rounded-lg bg-white/15 px-3 py-2"><span class="material-symbols-outlined text-sm">flag</span> Keep moving toward your target</span>
+    </div>
+  </div>
+  <div class="pointer-events-none absolute -right-8 -top-12 h-56 w-56 rounded-full border border-white/10"></div>
+  <div class="pointer-events-none absolute -right-2 -top-6 h-44 w-44 rounded-full border border-white/10"></div>
+  <span class="material-symbols-outlined pointer-events-none absolute bottom-3 right-7 text-[100px] text-white/[0.07] sm:text-[130px]">auto_stories</span>
+</div>
+<!-- Editorial Scholar Header Card -->
+<div class="bg-surface-card border border-surface-border rounded-xl p-6 sm:p-7 shadow-xs">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+<div class="max-w-3xl">
+<span class="text-xs uppercase tracking-widest font-semibold text-secondary">Scholar Tracking System</span>
+<h1 class="serif-title text-2xl sm:text-3xl text-primary font-bold mt-1 tracking-tight">
+              Dashboard Progres &amp; Diagnostik Kesiapan
+            </h1>
+<p class="text-ink-muted text-sm mt-2 leading-relaxed font-sans">
+              Evaluasi diri tanpa data fiktif atau angka dummy. Masukkan skor diagnostik atau hasil tes latihan Anda saat ini secara objektif untuk memantau kemajuan riil menuju universitas atau target imigrasi Anda.
+            </p>
+</div>
+<!-- Target Band Setting Controller -->
+<div class="bg-surface p-4 rounded-xl border border-surface-border flex flex-col gap-2 min-w-[240px]">
+<label class="text-xs font-semibold text-ink-muted uppercase tracking-wider flex items-center gap-1" for="targetBandSelect">
+<span class="material-symbols-outlined text-sm text-primary">flag</span>
+              Target Overall Band
+            </label>
+<div class="flex items-center gap-3">
+<select class="font-serif font-bold text-xl text-primary bg-white border border-surface-border rounded-lg px-3 py-1.5 focus:ring-1 focus:ring-primary focus:outline-none" id="targetBandSelect" onchange="updateBandMetrics()">
+<option value="6.0">Band 6.0</option>
+<option value="6.5">Band 6.5</option>
+<option selected="" value="7.0">Band 7.0</option>
+<option value="7.5">Band 7.5</option>
+<option value="8.0">Band 8.0</option>
+<option value="8.5">Band 8.5</option>
+<option value="9.0">Band 9.0</option>
+</select>
+<div class="text-xs text-ink-faint leading-tight">
+<div class="">Estimasi Rata-rata:</div>
+<div class="font-serif font-bold text-base text-ink" id="calculatedOverall">Belum dihitung</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Real Metrics Counter Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+<!-- Hari Belajar Riil -->
+<div class="bg-surface-card border border-surface-border rounded-xl p-5 flex items-start gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface flex items-center justify-center text-primary border border-surface-border shrink-0">
+<span class="material-symbols-outlined">calendar_month</span>
+</div>
+<div>
+<div class="text-xs uppercase font-semibold text-ink-faint">Hari Belajar Aktif</div>
+<div class="serif-title text-2xl font-bold text-ink mt-0.5" id="statActiveDays">0 Hari</div>
+<p class="text-xs text-ink-muted mt-1">Dihitung otomatis dari riwayat entri jurnal belajar</p>
+</div>
+</div>
+<!-- Akumulasi Waktu Latihan -->
+<div class="bg-surface-card border border-surface-border rounded-xl p-5 flex flex-col justify-between shadow-xs" id="pomodoroCard">
+  <div class="flex items-start justify-between gap-2">
+    <div class="flex items-center gap-2.5">
+      <div class="w-10 h-10 rounded-lg bg-surface flex items-center justify-center text-primary border border-surface-border shrink-0">
+        <span class="material-symbols-outlined text-xl" id="pomoIcon">timer</span>
+      </div>
+      <div>
+        <div class="text-xs uppercase font-semibold text-ink-faint tracking-wider">Timer Belajar Pomodoro</div>
+        <div class="text-[11px] text-ink-muted mt-0.5" id="pomoModeLabel">Mode: 30 Mnt (Drill Kilat)</div>
+      </div>
+    </div>
+    <div class="flex items-center gap-1 bg-surface p-1 rounded-lg border border-surface-border">
+      <button type="button" id="btnPomo30" class="px-2 py-0.5 rounded text-[11px] font-bold bg-primary text-white transition-all shadow-xs" onclick="setPomoDuration(30)" title="Fokus Kilat 30 Menit">30m</button>
+      <button type="button" id="btnPomo50" class="px-2 py-0.5 rounded text-[11px] font-medium text-ink-muted hover:text-ink transition-all" onclick="setPomoDuration(50)" title="Deep Work 50 Menit">50m</button>
+    </div>
+  </div>
+  <div class="my-2.5 flex items-center justify-between">
+    <div class="serif-title text-3xl font-bold text-ink tracking-tight font-serif" id="pomoDisplay">30:00</div>
+    <div class="flex items-center gap-1.5">
+      <button type="button" id="btnPomoToggle" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-primary hover:bg-primary-hover text-white text-xs font-semibold transition-colors shadow-xs" onclick="togglePomoTimer()">
+        <span class="material-symbols-outlined text-base" id="pomoPlayIcon">play_arrow</span>
+        <span id="pomoPlayText" class="">Mulai</span>
+      </button>
+      <button type="button" class="p-1.5 rounded-lg text-ink-muted hover:text-ink bg-surface border border-surface-border hover:bg-stone-100 transition-colors" onclick="resetPomoTimer()" title="Reset Timer">
+        <span class="material-symbols-outlined text-base">restart_alt</span>
+      </button>
+    </div>
+  </div>
+  <div class="w-full bg-stone-200 h-1.5 rounded-full overflow-hidden mb-2">
+    <div id="pomoProgressBar" class="bg-primary h-full rounded-full transition-all duration-1000" style="width: 100%;"></div>
+  </div>
+  <p class="text-xs text-ink-muted leading-tight">Fokus terstruktur: 30 mnt latihan kilat / 50 mnt deep work simulasi</p>
+</div>
+<!-- Checklist 8 Minggu Selesai -->
+<div class="bg-surface-card border border-surface-border rounded-xl p-5 flex items-start gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface flex items-center justify-center text-primary border border-surface-border shrink-0">
+<span class="material-symbols-outlined">task_alt</span>
+</div>
+<div>
+<div class="text-xs uppercase font-semibold text-ink-faint">Checklist 8 Minggu</div>
+<div class="serif-title text-2xl font-bold text-ink mt-0.5" id="statCompletedChecklist">0 / 32 Tugas</div>
+<p class="text-xs text-secondary font-medium mt-1" id="statChecklistPercent">0% dari kurikulum selesai</p>
+</div>
+</div>
+</div>
+<!-- The 4 Skill Pillars: Input Skor Aktual (NO FAKE / DUMMY SCORES) -->
+<div class="bg-surface-card border border-surface-border rounded-xl p-6 shadow-xs">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 mb-4 border-b border-surface-border gap-2">
+<div>
+<h2 class="serif-title text-lg font-bold text-primary">Skor Diagnostik Terkini (4 Skill Pillars)</h2>
+<p class="text-xs text-ink-muted mt-0.5">Skor dibiarkan kosong (<span class="font-mono text-ink-faint font-semibold">-</span>) sampai Anda memasukkan nilai riil dari latihan atau mock test.</p>
+</div>
+<button class="text-xs text-ink-faint hover:text-ink underline self-start sm:self-auto" onclick="resetSkillScores()">
+            Kosongkan Semua Skor
+          </button>
+</div>
+<div class="mb-5 grid grid-cols-1 md:grid-cols-2 gap-3 p-4 rounded-xl bg-surface border border-surface-border">
+  <div><label for="testSelectionMode" class="block text-xs font-semibold text-ink-muted mb-1">Mekanisme pemilihan set soal</label><select id="testSelectionMode" onchange="setTestSelectionMode(this.value)" class="w-full bg-white border border-surface-border rounded-lg px-3 py-2 text-xs"><option value="random">Random — acak tanpa mengulang sampai semua set terpakai</option><option value="rotation">Rotation — bergiliran dari Set 1 sampai Set 10</option></select></div>
+  <div class="flex items-center"><div class="text-xs text-ink-muted"><strong class="text-primary">Bank soal: 40 set</strong><br>10 set berbeda untuk setiap skill. Riwayat dan urutan rotasi tersimpan di perangkat ini.</div></div>
+</div>
+<div class="mb-5 p-4 rounded-xl border border-surface-border bg-white">
+  <div class="flex items-center justify-between gap-2 mb-2"><h3 class="font-serif font-bold text-sm text-primary">Riwayat Tes Diagnostik</h3><button type="button" onclick="clearDiagnosticHistory()" class="text-[11px] text-ink-faint underline">Hapus riwayat</button></div>
+  <div id="diagnosticHistory" class="space-y-2 text-xs text-ink-muted">Belum ada tes yang diselesaikan.</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"><!-- Listening -->
+<div class="bg-surface border border-surface-border rounded-xl p-4 flex flex-col justify-between space-y-3">
+  <div>
+    <div class="flex items-center justify-between mb-2">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-primary text-xl">headphones</span>
+        <span class="font-serif font-semibold text-sm text-ink">Listening</span>
+      </div>
+      <span class="text-xs font-semibold px-2 py-0.5 rounded bg-stone-200 text-stone-700" id="badge-listening">Belum diisi</span>
+    </div>
+    <p class="text-xs text-ink-muted mb-3">Fokus pemahaman aksen, distractors Section 3 &amp; 4, serta ejaan tepat.</p>
+    <button type="button" onclick="openDiagnosticModal('listening')" class="w-full inline-flex items-center justify-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-primary hover:bg-primary-hover text-white transition-colors shadow-xs mb-3">
+      <span class="material-symbols-outlined text-sm">play_circle</span>
+      <span class="">Mulai Tes Diagnostik</span>
+    </button>
+  </div>
+  <div>
+    <label class="text-[11px] font-medium text-ink-faint block mb-1" for="score-listening">Skor Tes / Override Manual:</label>
+    <select class="w-full bg-white border border-surface-border text-sm rounded-lg px-2.5 py-1.5 focus:ring-1 focus:ring-primary" id="score-listening" onchange="updateBandMetrics()">
+      <option value="">Belum diisi (-)</option>
+      <option value="4.0">Band 4.0</option>
+      <option value="4.5">Band 4.5</option>
+      <option value="5.0">Band 5.0</option>
+      <option value="5.5">Band 5.5</option>
+      <option value="6.0">Band 6.0</option>
+      <option value="6.5">Band 6.5</option>
+      <option value="7.0">Band 7.0</option>
+      <option value="7.5">Band 7.5</option>
+      <option value="8.0">Band 8.0</option>
+      <option value="8.5">Band 8.5</option>
+      <option value="9.0">Band 9.0</option>
+    </select>
+  </div>
+</div>
+
+<!-- Reading -->
+<div class="bg-surface border border-surface-border rounded-xl p-4 flex flex-col justify-between space-y-3">
+  <div>
+    <div class="flex items-center justify-between mb-2">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-primary text-xl">auto_stories</span>
+        <span class="font-serif font-semibold text-sm text-ink">Reading</span>
+      </div>
+      <span class="text-xs font-semibold px-2 py-0.5 rounded bg-stone-200 text-stone-700" id="badge-reading">Belum diisi</span>
+    </div>
+    <p class="text-xs text-ink-muted mb-3">Fokus True/False/Not Given, Matching Headings &amp; manajemen waktu 60 menit.</p>
+    <button type="button" onclick="openDiagnosticModal('reading')" class="w-full inline-flex items-center justify-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-primary hover:bg-primary-hover text-white transition-colors shadow-xs mb-3">
+      <span class="material-symbols-outlined text-sm">play_circle</span>
+      <span class="">Mulai Tes Diagnostik</span>
+    </button>
+  </div>
+  <div>
+    <label class="text-[11px] font-medium text-ink-faint block mb-1" for="score-reading">Skor Tes / Override Manual:</label>
+    <select class="w-full bg-white border border-surface-border text-sm rounded-lg px-2.5 py-1.5 focus:ring-1 focus:ring-primary" id="score-reading" onchange="updateBandMetrics()">
+      <option value="">Belum diisi (-)</option>
+      <option value="4.0">Band 4.0</option>
+      <option value="4.5">Band 4.5</option>
+      <option value="5.0">Band 5.0</option>
+      <option value="5.5">Band 5.5</option>
+      <option value="6.0">Band 6.0</option>
+      <option value="6.5">Band 6.5</option>
+      <option value="7.0">Band 7.0</option>
+      <option value="7.5">Band 7.5</option>
+      <option value="8.0">Band 8.0</option>
+      <option value="8.5">Band 8.5</option>
+      <option value="9.0">Band 9.0</option>
+    </select>
+  </div>
+</div>
+
+<!-- Writing -->
+<div class="bg-surface border border-surface-border rounded-xl p-4 flex flex-col justify-between space-y-3">
+  <div>
+    <div class="flex items-center justify-between mb-2">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-primary text-xl">edit_note</span>
+        <span class="font-serif font-semibold text-sm text-ink">Writing</span>
+      </div>
+      <span class="text-xs font-semibold px-2 py-0.5 rounded bg-stone-200 text-stone-700" id="badge-writing">Belum diisi</span>
+    </div>
+    <p class="text-xs text-ink-muted mb-3">Fokus Task Achievement/Response, Cohesion, Lexical Resource, &amp; Grammar.</p>
+    <button type="button" onclick="openDiagnosticModal('writing')" class="w-full inline-flex items-center justify-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-primary hover:bg-primary-hover text-white transition-colors shadow-xs mb-3">
+      <span class="material-symbols-outlined text-sm">play_circle</span>
+      <span class="">Mulai Tes Diagnostik</span>
+    </button>
+  </div>
+  <div>
+    <label class="text-[11px] font-medium text-ink-faint block mb-1" for="score-writing">Skor Tes / Override Manual:</label>
+    <select class="w-full bg-white border border-surface-border text-sm rounded-lg px-2.5 py-1.5 focus:ring-1 focus:ring-primary" id="score-writing" onchange="updateBandMetrics()">
+      <option value="">Belum diisi (-)</option>
+      <option value="4.0">Band 4.0</option>
+      <option value="4.5">Band 4.5</option>
+      <option value="5.0">Band 5.0</option>
+      <option value="5.5">Band 5.5</option>
+      <option value="6.0">Band 6.0</option>
+      <option value="6.5">Band 6.5</option>
+      <option value="7.0">Band 7.0</option>
+      <option value="7.5">Band 7.5</option>
+      <option value="8.0">Band 8.0</option>
+      <option value="8.5">Band 8.5</option>
+      <option value="9.0">Band 9.0</option>
+    </select>
+  </div>
+</div>
+
+<!-- Speaking -->
+<div class="bg-surface border border-surface-border rounded-xl p-4 flex flex-col justify-between space-y-3">
+  <div>
+    <div class="flex items-center justify-between mb-2">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-primary text-xl">record_voice_over</span>
+        <span class="font-serif font-semibold text-sm text-ink">Speaking</span>
+      </div>
+      <span class="text-xs font-semibold px-2 py-0.5 rounded bg-stone-200 text-stone-700" id="badge-speaking">Belum diisi</span>
+    </div>
+    <p class="text-xs text-ink-muted mb-3">Fokus kelancaran spontan, intonasi alami, argumen abstrak Part 3 tanpa memorisasi.</p>
+    <button type="button" onclick="openDiagnosticModal('speaking')" class="w-full inline-flex items-center justify-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-primary hover:bg-primary-hover text-white transition-colors shadow-xs mb-3">
+      <span class="material-symbols-outlined text-sm">play_circle</span>
+      <span class="">Mulai Tes Diagnostik</span>
+    </button>
+  </div>
+  <div>
+    <label class="text-[11px] font-medium text-ink-faint block mb-1" for="score-speaking">Skor Tes / Override Manual:</label>
+    <select class="w-full bg-white border border-surface-border text-sm rounded-lg px-2.5 py-1.5 focus:ring-1 focus:ring-primary" id="score-speaking" onchange="updateBandMetrics()">
+      <option value="">Belum diisi (-)</option>
+      <option value="4.0">Band 4.0</option>
+      <option value="4.5">Band 4.5</option>
+      <option value="5.0">Band 5.0</option>
+      <option value="5.5">Band 5.5</option>
+      <option value="6.0">Band 6.0</option>
+      <option value="6.5">Band 6.5</option>
+      <option value="7.0">Band 7.0</option>
+      <option value="7.5">Band 7.5</option>
+      <option value="8.0">Band 8.0</option>
+      <option value="8.5">Band 8.5</option>
+      <option value="9.0">Band 9.0</option>
+    </select>
+  </div>
+</div></div>
+</div>
+<!-- Quick Guidance & Action Banner -->
+<div class="bg-surface p-5 rounded-xl border border-surface-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-2xl mt-0.5">tips_and_updates</span>
+<div>
+<h4 class="font-serif font-bold text-sm text-primary">Rekomendasi Tahapan Hari Ini</h4>
+<p class="text-xs text-ink-muted mt-0.5">Selesaikan target modul minggu ini di <strong>Rencana 8 Minggu</strong> atau catat hasil refleksi latihan esai di <strong>Jurnal Belajar</strong>.</p>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="px-3.5 py-2 text-xs font-semibold rounded-lg bg-primary text-white hover:bg-primary-hover transition-colors whitespace-nowrap" onclick="switchTab('checklist')">
+            Buka Checklist Tugas
+          </button>
+<button class="px-3.5 py-2 text-xs font-semibold rounded-lg bg-white border border-surface-border text-ink hover:bg-stone-50 transition-colors whitespace-nowrap" onclick="switchTab('journal')">
+            Tulis Jurnal Baru
+          </button>
+</div>
+</div>
+</section>
+<!-- ========================================== -->
+<!-- BAGIAN 2: RENCANA BELAJAR 8 MINGGU        -->
+<!-- ========================================== -->
+<section class="tab-content space-y-6 hidden" id="section-checklist">
+<div class="bg-surface-card border border-surface-border rounded-xl p-6 shadow-xs">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-surface-border">
+<div>
+<div class="text-xs uppercase tracking-wider font-semibold text-secondary">Kurikulum Terstruktur 60 Hari</div>
+<h2 class="serif-title text-2xl font-bold text-primary mt-1">Rencana Belajar 8 Minggu (Interactive Checklist)</h2>
+<p class="text-xs text-ink-muted mt-1">Pilih minggu yang sedang dijalani, centang target tugas harian, dan pantau kemajuan modul Anda secara sistematis.</p>
+</div>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<span class="text-xs text-ink-faint block">Kemajuan Kumulatif:</span>
+<span class="font-serif font-bold text-primary text-lg" id="checklistProgressText">0 / 32 (0%)</span>
+</div>
+<div class="w-24 bg-stone-200 h-2.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full transition-all duration-300" id="checklistProgressBar" style="width: 0%;"></div>
+</div>
+</div>
+</div>
+<!-- Week Selector Pills (Minggu 1 s/d Minggu 8) -->
+<div class="flex overflow-x-auto gap-2 py-4 no-scrollbar">
+<button class="week-pill px-4 py-2 rounded-lg text-xs font-bold transition-all bg-primary text-white shadow-xs" id="week-pill-1" onclick="selectWeek(1)">Minggu 1: Fondasi</button>
+<button class="week-pill px-4 py-2 rounded-lg text-xs font-medium transition-all bg-surface border border-surface-border text-ink-muted hover:text-ink" id="week-pill-2" onclick="selectWeek(2)">Minggu 2: L &amp; R</button>
+<button class="week-pill px-4 py-2 rounded-lg text-xs font-medium transition-all bg-surface border border-surface-border text-ink-muted hover:text-ink" id="week-pill-3" onclick="selectWeek(3)">Minggu 3: Writing 1</button>
+<button class="week-pill px-4 py-2 rounded-lg text-xs font-medium transition-all bg-surface border border-surface-border text-ink-muted hover:text-ink" id="week-pill-4" onclick="selectWeek(4)">Minggu 4: Writing 2</button>
+<button class="week-pill px-4 py-2 rounded-lg text-xs font-medium transition-all bg-surface border border-surface-border text-ink-muted hover:text-ink" id="week-pill-5" onclick="selectWeek(5)">Minggu 5: Speaking</button>
+<button class="week-pill px-4 py-2 rounded-lg text-xs font-medium transition-all bg-surface border border-surface-border text-ink-muted hover:text-ink" id="week-pill-6" onclick="selectWeek(6)">Minggu 6: Kelemahan</button>
+<button class="week-pill px-4 py-2 rounded-lg text-xs font-medium transition-all bg-surface border border-surface-border text-ink-muted hover:text-ink" id="week-pill-7" onclick="selectWeek(7)">Minggu 7: Simulasi</button>
+<button class="week-pill px-4 py-2 rounded-lg text-xs font-medium transition-all bg-surface border border-surface-border text-ink-muted hover:text-ink" id="week-pill-8" onclick="selectWeek(8)">Minggu 8: Review</button>
+</div>
+<!-- Weekly Task Cards Container -->
+<div class="mt-4 space-y-4" id="weekTasksContainer">
+<!-- Dynamically populated or switchable content handled via JS -->
+</div>
+</div>
+</section>
+<!-- ========================================== -->
+<!-- BAGIAN 3: JURNAL BELAJAR & REFLEKSI HARIAN -->
+<!-- ========================================== -->
+<section class="tab-content space-y-6 hidden" id="section-journal">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<!-- Formulir Input Jurnal Belajar (5 cols) -->
+<div class="lg:col-span-5 bg-surface-card border border-surface-border rounded-xl p-6 shadow-xs">
+<div class="border-b border-surface-border pb-3 mb-4">
+<span class="text-xs uppercase font-semibold text-secondary">Buku Catatan Mandiri</span>
+<h3 class="serif-title text-xl font-bold text-primary mt-0.5">Catat Sesi Belajar Hari Ini</h3>
+<p class="text-xs text-ink-muted mt-1">Dokumentasikan durasi riil dan pembelajaran spesifik untuk membangun retensi jangka panjang.</p>
+</div>
+<form class="space-y-4 text-xs" id="journalForm" onsubmit="saveJournalEntry(event)">
+<!-- Tanggal & Kategori -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+<div>
+<label class="font-semibold text-ink-muted block mb-1" for="journalDate">Tanggal</label>
+<input class="w-full bg-surface border border-surface-border rounded-lg px-3 py-2 text-ink focus:ring-1 focus:ring-primary focus:bg-white text-xs" id="journalDate" required="" type="date">
+</div>
+<div>
+<label class="font-semibold text-ink-muted block mb-1" for="journalCategory">Kategori Aktivitas</label>
+<select class="w-full bg-surface border border-surface-border rounded-lg px-3 py-2 text-ink focus:ring-1 focus:ring-primary focus:bg-white text-xs" id="journalCategory" required="">
+<option value="Listening">Listening</option>
+<option value="Reading">Reading</option>
+<option value="Writing">Writing</option>
+<option value="Speaking">Speaking</option>
+<option value="Vocabulary/Grammar">Vocabulary &amp; Grammar</option>
+<option value="Mock test">Full Mock Test</option>
+</select>
+</div>
+</div>
+<!-- Durasi Menit -->
+<div>
+<label class="font-semibold text-ink-muted block mb-1" for="journalDuration">Durasi Latihan (Menit)</label>
+<input class="w-full bg-surface border border-surface-border rounded-lg px-3 py-2 text-ink focus:ring-1 focus:ring-primary focus:bg-white text-xs" id="journalDuration" max="600" min="5" placeholder="Contoh: 45" required="" step="5" type="number">
+</div>
+<!-- Dua Kolom Catatan Refleksi Mendalam -->
+<div class="space-y-3 pt-1">
+<div>
+<label class="font-semibold text-primary block mb-1 flex items-center gap-1" for="journalLearned">
+<span class="material-symbols-outlined text-sm">lightbulb</span>
+                  Apa yang dipelajari hari ini? (Konsep / Kosakata / Wawasan)
+                </label>
+<textarea class="w-full bg-surface border border-surface-border rounded-lg p-2.5 text-ink focus:ring-1 focus:ring-primary focus:bg-white text-xs leading-relaxed" id="journalLearned" placeholder="Contoh: Mempelajari struktur paragraf konsesi pada esai opini Task 2; collocations: 'substantiate a claim', 'ubiquitous presence'..." required="" rows="3"></textarea>
+</div>
+<div>
+<label class="font-semibold text-secondary block mb-1 flex items-center gap-1" for="journalReview">
+<span class="material-symbols-outlined text-sm">center_focus_strong</span>
+                  Apa yang perlu dilatih lagi / dievaluasi? (Pola Blunder)
+                </label>
+<textarea class="w-full bg-surface border border-surface-border rounded-lg p-2.5 text-ink focus:ring-1 focus:ring-primary focus:bg-white text-xs leading-relaxed" id="journalReview" placeholder="Contoh: Terlalu terburu-buru membaca soal Reading Passage 3 sehingga salah membedakan 'False' vs 'Not Given'; perbaiki speed scanning..." required="" rows="3"></textarea>
+</div>
+</div>
+<button class="w-full py-2.5 px-4 rounded-lg bg-primary hover:bg-primary-hover text-white font-semibold transition-colors flex items-center justify-center gap-1.5 shadow-xs" type="submit">
+<span class="material-symbols-outlined text-base">save</span>
+<span class="">Simpan Catatan Jurnal</span>
+</button>
+</form>
+</div>
+<!-- Daftar Riwayat Entri Jurnal (7 cols) -->
+<div class="lg:col-span-7 bg-surface-card border border-surface-border rounded-xl p-6 shadow-xs flex flex-col min-h-[500px]">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 mb-4 border-b border-surface-border gap-2">
+<div>
+<h3 class="serif-title text-xl font-bold text-primary">Riwayat &amp; Refleksi Jurnal</h3>
+<p class="text-xs text-ink-muted">Tinjau kembali proses belajar harian dan identifikasi pola kesalahan berulang.</p>
+</div>
+<!-- Filter Kategori -->
+<div class="flex items-center gap-2">
+<label class="text-xs text-ink-faint" for="filterCategory">Filter:</label>
+<select class="bg-surface border border-surface-border rounded-lg px-2.5 py-1 text-xs text-ink" id="filterCategory" onchange="renderJournalEntries()">
+<option value="ALL">Semua Kategori</option>
+<option value="Listening">Listening</option>
+<option value="Reading">Reading</option>
+<option value="Writing">Writing</option>
+<option value="Speaking">Speaking</option>
+<option value="Vocabulary/Grammar">Vocabulary/Grammar</option>
+<option value="Mock test">Mock test</option>
+</select>
+</div>
+</div>
+<!-- Entries Container -->
+<div class="space-y-3.5 overflow-y-auto max-h-[600px] pr-1" id="journalEntriesList">
+<!-- Rendered by JS -->
+</div>
+</div>
+</div>
+</section>
+<!-- ========================================== -->
+<!-- BAGIAN 4: MATERI LATIHAN RESMI IELTS       -->
+<!-- ========================================== -->
+<section class="tab-content space-y-6 hidden" id="section-official-materials">
+<!-- Penanda Pembeda Format yang Jelas -->
+<div class="bg-primary text-white rounded-xl p-6 sm:p-7 shadow-xs">
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center text-white shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-2xl">info</span>
+</div>
+<div>
+<span class="text-xs uppercase tracking-widest font-semibold text-accent">Struktur Resmi Tes IELTS</span>
+<h2 class="serif-title text-xl sm:text-2xl font-bold mt-0.5">Panduan Format Akademik vs. General Training</h2>
+<div class="mt-3 p-3.5 rounded-lg bg-white/10 text-xs leading-relaxed text-stone-100 max-w-3xl border border-white/10">
+<p class="font-medium text-white">
+                💡 <strong>Prinsip Inti:</strong> Modul <em>Listening</em> dan <em>Speaking</em> adalah <strong>identik 100%</strong> untuk peserta Academic maupun General Training.
+              </p>
+<p class="mt-1 text-stone-200">
+                Pembeda resmi hanya berada pada <strong>Reading</strong> (teks ilmiah/jurnal akademik vs. pengumuman kerja &amp; artikel umum) dan <strong>Writing</strong> (Task 1 Academic: interpretasi data/diagram grafik vs. Task 1 GT: penulisan surat formal/semi-formal).
+              </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Kartu Sumber Resmi Terverifikasi -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+<!-- Academic Test Samples -->
+<div class="bg-surface-card border border-surface-border rounded-xl p-6 shadow-xs flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-semibold px-2.5 py-0.5 rounded bg-emerald-100 text-emerald-900 border border-emerald-200">Official IELTS Academic</span>
+<span class="material-symbols-outlined text-primary text-xl">school</span>
+</div>
+<h3 class="serif-title text-lg font-bold text-primary">Academic Sample Questions</h3>
+<p class="text-xs text-ink-muted mt-2 leading-relaxed">
+              Koleksi soal latihan asli langsung dari pemilik tes (IELTS.org / Cambridge). Meliputi materi mendalam untuk Academic Reading (3 artikel teks analitis kompleks) dan Academic Writing Task 1 (laporan grafik/diagram batang/peta) serta Task 2.
+            </p>
+</div>
+<div class="mt-6 pt-4 border-t border-surface-border flex items-center justify-between">
+<span class="text-[11px] text-ink-faint">Domain: ielts.org/sample-test-questions</span>
+<a class="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:text-secondary underline" href="https://ielts.org/take-a-test/preparation-resources/sample-test-questions/academic-test" rel="noopener noreferrer" target="_blank">
+<span class="">Buka Soal Latihan</span>
+<span class="material-symbols-outlined text-sm">open_in_new</span>
+</a>
+</div>
+</div>
+<!-- General Training Test Samples -->
+<div class="bg-surface-card border border-surface-border rounded-xl p-6 shadow-xs flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-semibold px-2.5 py-0.5 rounded bg-blue-100 text-blue-900 border border-blue-200">Official General Training</span>
+<span class="material-symbols-outlined text-blue-800 text-xl">work</span>
+</div>
+<h3 class="serif-title text-lg font-bold text-primary">General Training Sample Questions</h3>
+<p class="text-xs text-ink-muted mt-2 leading-relaxed">
+              Materi latihan resmi untuk tujuan migrasi dan kerja profesional. Berisi panduan contoh soal GT Reading (konteks tempat kerja dan survival di negara penutur bahasa Inggris) serta GT Writing Task 1 (penulisan surat formal, semi-formal, dan personal).
+            </p>
+</div>
+<div class="mt-6 pt-4 border-t border-surface-border flex items-center justify-between">
+<span class="text-[11px] text-ink-faint">Domain: ielts.org/general-training-test</span>
+<a class="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:text-secondary underline" href="https://ielts.org/take-a-test/preparation-resources/sample-test-questions/general-training-test" rel="noopener noreferrer" target="_blank">
+<span class="">Buka Soal Latihan</span>
+<span class="material-symbols-outlined text-sm">open_in_new</span>
+</a>
+</div>
+</div>
+<!-- Computer-delivered IELTS Practice -->
+<div class="bg-surface-card border border-surface-border rounded-xl p-6 shadow-xs flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-semibold px-2.5 py-0.5 rounded bg-stone-100 text-stone-800 border border-stone-200">Computer Delivered</span>
+<span class="material-symbols-outlined text-primary text-xl">laptop_mac</span>
+</div>
+<h3 class="serif-title text-lg font-bold text-primary">Computer-Delivered Sample Tests</h3>
+<p class="text-xs text-ink-muted mt-2 leading-relaxed">
+              Simulasi antarmuka komputer resmi sebelum hari ujian: membiasakan diri dengan fitur navigasi layar, penanda teks (highlighting), split-screen reading, dan pengetikan esai writing secara langsung di sistem resmi IELTS.
+            </p>
+</div>
+<div class="mt-6 pt-4 border-t border-surface-border flex items-center justify-between">
+<span class="text-[11px] text-ink-faint">Domain: ielts.org/computer-delivered-ielts</span>
+<a class="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:text-secondary underline" href="https://ielts.org/about-the-test/computer-delivered-ielts/sample-test-questions" rel="noopener noreferrer" target="_blank">
+<span class="">Buka Simulasi Komputer</span>
+<span class="material-symbols-outlined text-sm">open_in_new</span>
+</a>
+</div>
+</div>
+<!-- Comprehensive Preparation Resources Hub -->
+<div class="bg-surface-card border border-surface-border rounded-xl p-6 shadow-xs flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-semibold px-2.5 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-200">Official Hub</span>
+<span class="material-symbols-outlined text-amber-800 text-xl">library_books</span>
+</div>
+<h3 class="serif-title text-lg font-bold text-primary">IELTS Preparation Resources &amp; Assessment Criteria</h3>
+<p class="text-xs text-ink-muted mt-2 leading-relaxed">
+              Panduan resmi rubrik penilaian publik: Band Descriptors untuk Writing (Task 1 &amp; 2) dan Speaking (Fluency, Lexical Resource, Grammatical Range &amp; Accuracy, Pronunciation). Sangat penting dipahami agar mengetahui ekspektasi examiner.
+            </p>
+</div>
+<div class="mt-6 pt-4 border-t border-surface-border flex items-center justify-between">
+<span class="text-[11px] text-ink-faint">Domain: ielts.org/preparation-resources</span>
+<a class="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:text-secondary underline" href="https://ielts.org/take-a-test/preparation-resources" rel="noopener noreferrer" target="_blank">
+<span class="">Buka Panduan Rubrik</span>
+<span class="material-symbols-outlined text-sm">open_in_new</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- ========================================== -->
+<!-- BAGIAN 5: PREDIKSI SPEAKING OKT-DES 2026   -->
+<!-- ========================================== -->
+<section class="tab-content space-y-6 hidden" id="section-speaking-prediction">
+<!-- Mandatory Ethics & Independent Disclaimer Banner -->
+<div class="bg-amber-50 border-2 border-amber-300 rounded-xl p-5 sm:p-6 shadow-xs">
+<div class="flex items-start gap-3.5">
+<span class="material-symbols-outlined text-amber-800 text-2xl mt-0.5">warning</span>
+<div class="space-y-1">
+<div class="flex flex-wrap items-center gap-2">
+<span class="px-2 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider bg-amber-200 text-amber-900">
+                Label: Prediksi Independen (Tidak Resmi)
+              </span>
+<span class="text-xs font-semibold text-amber-900">Kurasi Komunitas Global 2026</span>
+</div>
+<p class="text-xs text-amber-900 leading-relaxed font-sans pt-1">
+              Materi berikut dikurasi berdasarkan laporan peserta &amp; komunitas persiapan tes global. <strong>BUKAN bocoran soal atau jaminan materi ujian resmi IELTS (IDP/British Council/Cambridge).</strong>
+</p>
+<p class="text-xs text-amber-800 italic pt-0.5">
+              📌 <strong>Panduan Praktis:</strong> Jawablah dengan pengalaman pribadi yang autentik, rekam suara Anda sendiri, dan <strong>HINDARI menghafal jawaban model/template</strong> karena penguji IELTS terlatih mendeteksi hapalan dan akan memotong nilai kefasihan alami Anda.
+            </p>
+</div>
+</div>
+</div>
+<!-- Interactive Cue Card Timer (Part 2 Simulation) -->
+<div class="bg-surface-card border border-surface-border rounded-xl p-6 shadow-xs">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-surface-border">
+<div>
+<div class="text-xs uppercase font-semibold text-secondary">Simulator Part 2 Cue Card</div>
+<h3 class="serif-title text-lg font-bold text-primary mt-0.5">Timer Praktik Resmi: 1 Menit Persiapan &amp; 2 Menit Bicara</h3>
+<p class="text-xs text-ink-muted">Ukur ketahanan waktu Anda seperti suasana ruang ujian sesungguhnya.</p>
+</div>
+<!-- Timer Display & Controls -->
+<div class="flex items-center gap-4 bg-surface px-5 py-3 rounded-xl border border-surface-border">
+<div class="text-right">
+<span class="text-[10px] uppercase font-bold text-ink-faint block" id="timerLabel">Mode Standby</span>
+<span class="font-mono text-2xl font-bold text-primary" id="timerDisplay">01:00</span>
+</div>
+<div class="flex gap-1.5">
+<button class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white border border-surface-border hover:bg-stone-50 text-ink" onclick="startSpeakingTimer(60, 'Persiapan 1 Menit (Brainstorming Catatan)')">
+                1 Menit Catat
+              </button>
+<button class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-primary hover:bg-primary-hover text-white" onclick="startSpeakingTimer(120, 'Bicara Mandiri 2 Menit (Part 2 Delivery)')">
+                2 Menit Bicara
+              </button>
+<button class="p-1.5 rounded-lg text-xs text-ink-muted hover:text-ink border border-surface-border bg-white" onclick="resetSpeakingTimer()" title="Reset Timer">
+<span class="material-symbols-outlined text-base">restart_alt</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Timer Progress Visual Bar -->
+<div class="w-full bg-stone-200 h-2 rounded-full overflow-hidden mt-4">
+<div class="bg-primary h-full transition-all duration-1000" id="timerProgressBar" style="width: 100%;"></div>
+</div>
+</div>
+<!-- Curated Prediction Bank (Part 1, Part 2, Part 3) -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Part 1 Topics -->
+<div class="bg-surface-card border border-surface-border rounded-xl p-5 shadow-xs space-y-4">
+<div class="flex items-center gap-2 border-b border-surface-border pb-3">
+<span class="w-6 h-6 rounded-full bg-stone-100 text-primary flex items-center justify-center font-bold text-xs">1</span>
+<h4 class="font-serif font-bold text-sm text-primary">Part 1: Wawancara Personal &amp; Rutinitas</h4>
+</div>
+<p class="text-xs text-ink-faint">Jawab langsung dalam 2–3 kalimat tanpa intro bertele-tele.</p>
+<ul class="text-xs text-ink space-y-3 font-sans">
+<li class="p-2.5 rounded-lg bg-surface border border-surface-border">
+<strong class="text-primary block mb-0.5">1. Studi &amp; Pekerjaan:</strong>
+              Apakah Anda berencana mengubah spesialisasi karir Anda di masa mendatang? Mengapa?
+            </li>
+<li class="p-2.5 rounded-lg bg-surface border border-surface-border">
+<strong class="text-primary block mb-0.5">2. Tempat Tinggal &amp; Lingkungan:</strong>
+              Fasilitas publik apa yang menurut Anda paling krusial di area tempat tinggal Anda?
+            </li>
+<li class="p-2.5 rounded-lg bg-surface border border-surface-border">
+<strong class="text-primary block mb-0.5">3. Musik &amp; Konsentrasi:</strong>
+              Kapan Anda lebih memilih mendengarkan musik instrumental dibanding lagu bervokal?
+            </li>
+<li class="p-2.5 rounded-lg bg-surface border border-surface-border">
+<strong class="text-primary block mb-0.5">4. Media Sosial &amp; Kabar:</strong>
+              Bagaimana cara Anda memverifikasi akurasi informasi yang Anda temui daring?
+            </li>
+<li class="p-2.5 rounded-lg bg-surface border border-surface-border">
+<strong class="text-primary block mb-0.5">5. Cuaca &amp; Iklim:</strong>
+              Apakah perubahan cuaca ekstrem di kota Anda mempengaruhi produktivitas kerja?
+            </li>
+<li class="p-2.5 rounded-lg bg-surface border border-surface-border">
+<strong class="text-primary block mb-0.5">6. Rutinitas Keseharian:</strong>
+              Bagian mana dari rutinitas harian Anda yang ingin Anda modifikasi jika punya lebih banyak waktu luang?
+            </li>
+</ul>
+</div>
+<!-- Part 2 Topics (Cue Cards) -->
+<div class="bg-surface-card border border-surface-border rounded-xl p-5 shadow-xs space-y-4">
+<div class="flex items-center gap-2 border-b border-surface-border pb-3">
+<span class="w-6 h-6 rounded-full bg-stone-100 text-primary flex items-center justify-center font-bold text-xs">2</span>
+<h4 class="font-serif font-bold text-sm text-primary">Part 2: Long Turn (Cue Cards)</h4>
+</div>
+<p class="text-xs text-ink-faint">Gunakan 1 menit untuk menulis poin, lalu bicara terstruktur selama 2 menit.</p>
+<div class="space-y-3 text-xs">
+<div class="p-3 rounded-lg bg-surface border border-surface-border">
+<h5 class="font-serif font-bold text-primary mb-1">Card A: Kerjasama Tim (Teamwork)</h5>
+<p class="text-ink-muted leading-relaxed">
+                Ceritakan pengalaman bekerja sama dengan sekelompok orang untuk menyelesaikan satu proyek penting. Jelaskan: siapa anggotanya, kesulitan apa yang dihadapi, dan apa kontribusi spesifik Anda.
+              </p>
+</div>
+<div class="p-3 rounded-lg bg-surface border border-surface-border">
+<h5 class="font-serif font-bold text-primary mb-1">Card B: Tugas Sangat Sulit</h5>
+<p class="text-ink-muted leading-relaxed">
+                Deskripsikan sebuah pekerjaan atau ujian yang sangat menantang dan membebani pikiran Anda. Jelaskan: kapan itu terjadi, strategi apa yang Anda ambil, dan bagaimana perasaan Anda setelah tuntas.
+              </p>
+</div>
+<div class="p-3 rounded-lg bg-surface border border-surface-border">
+<h5 class="font-serif font-bold text-primary mb-1">Card C: Perjalanan Tak Terlupakan</h5>
+<p class="text-ink-muted leading-relaxed">
+                Ceritakan suatu perjalanan jauh atau kunjungan ke lokasi tertentu yang memberikan perspektif baru dalam hidup Anda. Jelaskan: moda transportasi, dinamika perjalanan, dan nilai hidup yang didapat.
+              </p>
+</div>
+<div class="p-3 rounded-lg bg-surface border border-surface-border">
+<h5 class="font-serif font-bold text-primary mb-1">Card D: Menerima Pelayanan Buruk</h5>
+<p class="text-ink-muted leading-relaxed">
+                Ceritakan situasi ketika Anda menerima pelayanan mengecewakan di restoran, toko, atau kantor publik. Jelaskan: reaksi Anda saat itu, apakah Anda menyampaikan komplain, dan apa resolusinya.
+              </p>
+</div>
+</div>
+</div>
+<!-- Part 3 Topics (Two-way Discussion) -->
+<div class="bg-surface-card border border-surface-border rounded-xl p-5 shadow-xs space-y-4">
+<div class="flex items-center gap-2 border-b border-surface-border pb-3">
+<span class="w-6 h-6 rounded-full bg-stone-100 text-primary flex items-center justify-center font-bold text-xs">3</span>
+<h4 class="font-serif font-bold text-sm text-primary">Part 3: Diskusi Analitis &amp; Abstrak</h4>
+</div>
+<p class="text-xs text-ink-faint">Kembangkan jawaban dengan perspektif sosial makro (masyarakat, negara, etika).</p>
+<ul class="text-xs text-ink space-y-3 font-sans">
+<li class="p-2.5 rounded-lg bg-surface border border-surface-border">
+<strong class="text-primary block mb-0.5">1. Aturan Sosial &amp; Kedisiplinan:</strong>
+              Sejauh mana masyarakat modern bersedia mengorbankan privasi demi tegaknya rasa aman di fasilitas publik?
+            </li>
+<li class="p-2.5 rounded-lg bg-surface border border-surface-border">
+<strong class="text-primary block mb-0.5">2. Nilai Kesabaran di Era Instan:</strong>
+              Mengapa generasi muda cenderung lebih rentan frustrasi ketika hasil instan tidak tercapai?
+            </li>
+<li class="p-2.5 rounded-lg bg-surface border border-surface-border">
+<strong class="text-primary block mb-0.5">3. Kolaborasi vs Individualisme:</strong>
+              Apakah sistem pendidikan modern terlalu mengutamakan peringkat individual dibanding empati kolaboratif?
+            </li>
+<li class="p-2.5 rounded-lg bg-surface border border-surface-border">
+<strong class="text-primary block mb-0.5">4. Kecerdasan Buatan (AI) &amp; Privasi:</strong>
+              Bagaimana regulasi seharusnya membatasi eksploitasi data pribadi dalam pelatihan model kecerdasan buatan?
+            </li>
+<li class="p-2.5 rounded-lg bg-surface border border-surface-border">
+<strong class="text-primary block mb-0.5">5. Dampak Media Sosial pada Remaja:</strong>
+              Apakah platform video pendek telah mengubah struktur konsentrasi dan kapasitas berpikir kritis generasi muda?
+            </li>
+</ul>
+</div>
+</div>
+<!-- Sumber Referensi Independen Komunitas -->
+<div class="bg-surface p-5 rounded-xl border border-surface-border text-xs">
+<h4 class="font-serif font-bold text-primary mb-2">Tautan Referensi Prediksi Komunitas Independen:</h4>
+<div class="flex flex-wrap gap-4 text-ink-muted">
+<a class="hover:text-primary underline flex items-center gap-1" href="https://nomto.app/ielts/articles/ielts-speaking-topics" rel="noopener noreferrer" target="_blank">
+<span class="">Nomto IELTS Topic Repository</span>
+<span class="material-symbols-outlined text-sm">open_in_new</span>
+</a>
+<a class="hover:text-primary underline flex items-center gap-1" href="https://bandladder.com/ielts-speaking-predictions" rel="noopener noreferrer" target="_blank">
+<span class="">BandLadder Speaking Prediction Hub</span>
+<span class="material-symbols-outlined text-sm">open_in_new</span>
+</a>
+<a class="hover:text-primary underline flex items-center gap-1" href="https://linguapractice.com/ielts/speaking/recent-questions/2026-september-december" rel="noopener noreferrer" target="_blank">
+<span class="">LinguaPractice Recent Test Compilation</span>
+<span class="material-symbols-outlined text-sm">open_in_new</span>
+</a>
+</div>
+</div>
+</section>
+<!-- ========================================== -->
+<!-- BAGIAN 6: PENGATURAN CLOUD SUPABASE       -->
+<!-- ========================================== -->
+<section class="tab-content space-y-6 hidden" id="section-supabase">
+<div class="bg-surface-card border border-surface-border rounded-xl p-6 shadow-xs">
+<div class="border-b border-surface-border pb-4 mb-5">
+<div class="text-xs uppercase font-semibold text-secondary">Sinkronisasi Lintas Perangkat</div>
+<h2 class="serif-title text-2xl font-bold text-primary mt-1">Pengaturan Sinkronisasi Database Supabase</h2>
+<p class="text-xs text-ink-muted mt-1 leading-relaxed">
+            Hubungkan proyek Supabase Anda sendiri untuk menyelaraskan catatan jurnal, progres 8 minggu, dan skor diagnostik antar perangkat Anda dan pasangan secara instan.
+          </p>
+</div>
+<!-- Strict Key Warning Banner -->
+<div class="bg-red-50 border-l-4 border-red-600 p-4 rounded-r-lg mb-6">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-red-600 text-xl mt-0.5">security</span>
+<div>
+<h4 class="text-xs font-bold text-red-800 uppercase tracking-wider">Peringatan Keamanan Kritis (Security Notice)</h4>
+<p class="text-xs text-red-700 mt-0.5 leading-relaxed">
+<strong>HANYA gunakan Anon / Publishable Public Key!</strong> Jangan pernah memasukkan <code>service_role</code> atau <code>secret key</code> ke dalam formulir browser apa pun. Anon key aman digunakan bersama kebijakan Row Level Security (RLS).
+              </p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+<!-- Konfigurasi URL & Auth Panel -->
+<div class="space-y-6">
+<!-- Step 1: Project Credentials -->
+<div class="bg-surface p-5 rounded-xl border border-surface-border space-y-3 text-xs">
+<h4 class="font-serif font-bold text-sm text-primary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-base">link</span>
+                1. Kredensial Proyek Supabase
+              </h4>
+<div>
+<label class="font-semibold text-ink-muted block mb-1" for="sbUrl">Project URL</label>
+<input class="w-full bg-white border border-surface-border rounded-lg px-3 py-2 text-ink text-xs focus:ring-1 focus:ring-primary" id="sbUrl" placeholder="https://xyzcompany.supabase.co" type="url">
+</div>
+<div>
+<label class="font-semibold text-ink-muted block mb-1" for="sbAnonKey">Anon / Public API Key</label>
+<input class="w-full bg-white border border-surface-border rounded-lg px-3 py-2 text-ink text-xs focus:ring-1 focus:ring-primary" id="sbAnonKey" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." type="password">
+</div>
+<button class="w-full py-2 px-3 rounded-lg bg-stone-800 hover:bg-stone-900 text-white font-semibold transition-colors" onclick="saveSupabaseConfig()">
+                Simpan Konfigurasi Kredensial
+              </button>
+</div>
+<!-- Step 2: Supabase User Authentication (Login/Register) -->
+<div class="bg-surface p-5 rounded-xl border border-surface-border space-y-3 text-xs">
+<h4 class="font-serif font-bold text-sm text-primary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-base">person</span>
+                2. Autentikasi Pengguna (Akun Bersama)
+              </h4>
+<p class="text-ink-muted">Gunakan email &amp; password yang sama di laptop Anda dan pasangan untuk berbagi catatan belajar.</p>
+<div>
+<label class="font-semibold text-ink-muted block mb-1" for="sbEmail">Email Pengguna</label>
+<input class="w-full bg-white border border-surface-border rounded-lg px-3 py-2 text-ink text-xs" id="sbEmail" placeholder="scholar@example.com" type="email">
+</div>
+<div>
+<label class="font-semibold text-ink-muted block mb-1" for="sbPassword">Kata Sandi</label>
+<input class="w-full bg-white border border-surface-border rounded-lg px-3 py-2 text-ink text-xs" id="sbPassword" placeholder="••••••••••••" type="password">
+</div>
+<div class="grid grid-cols-2 gap-2 pt-1">
+<button class="py-2 px-3 rounded-lg bg-primary hover:bg-primary-hover text-white font-semibold transition-colors" onclick="handleSupabaseAuth('login')">
+                  Masuk (Log In)
+                </button>
+<button class="py-2 px-3 rounded-lg bg-white border border-surface-border hover:bg-stone-50 text-ink font-semibold transition-colors" onclick="handleSupabaseAuth('register')">
+                  Daftar Akun Baru
+                </button>
+</div>
+<!-- Fallback Mechanism Notice -->
+<div class="mt-2 p-2.5 rounded bg-emerald-50 border border-emerald-200 text-emerald-800 text-[11px]">
+                🛡️ <strong>Mekanisme Fallback Otomatis:</strong> Seluruh data Anda (skor, checklist 8 minggu, jurnal) tetap tersimpan aman di <code>localStorage</code> peramban Anda kapan pun Anda tidak tersambung ke Supabase.
+              </div>
+</div>
+</div>
+<!-- Step 3: SQL Setup Schema with RLS -->
+<div class="space-y-3 text-xs">
+<div class="flex items-center justify-between">
+<h4 class="font-serif font-bold text-sm text-primary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-base">terminal</span>
+                Skrip SQL Setup (Copy &amp; Run di Supabase SQL Editor)
+              </h4>
+<button class="text-primary hover:underline font-semibold flex items-center gap-1" onclick="copySqlScript()">
+<span class="material-symbols-outlined text-xs">content_copy</span>
+                Salin SQL
+              </button>
+</div>
+<p class="text-ink-muted">
+              Tabel <code>public.ielts_progress</code> dirancang menyimpan state data terenkripsi RLS per pengguna:
+            </p>
+<pre class="bg-stone-900 text-stone-200 p-4 rounded-xl font-mono text-[11px] overflow-x-auto leading-relaxed border border-stone-800 select-all" id="sqlSnippet">-- 1. Buat Tabel Penyimpanan State IELTS
+create table if not exists public.ielts_progress (
+  user_id uuid primary key references auth.users(id) on delete cascade,
+  state jsonb not null default '{}'::jsonb,
+  updated_at timestamptz not null default now()
+);
+
+-- 2. Aktifkan Row Level Security (RLS)
+alter table public.ielts_progress enable row level security;
+
+-- 3. Kebijakan Baca: Pengguna hanya melihat datanya sendiri
+create policy "Users can view their own IELTS progress"
+  on public.ielts_progress for select
+  using (auth.uid() = user_id);
+
+-- 4. Kebijakan Tulis/Update: Pengguna dapat menyisipkan atau memperbarui
+create policy "Users can upsert their own IELTS progress"
+  on public.ielts_progress for insert
+  with check (auth.uid() = user_id);
+
+create policy "Users can update their own IELTS progress"
+  on public.ielts_progress for update
+  using (auth.uid() = user_id);
+            </pre>
+<div class="p-3 bg-surface rounded-lg border border-surface-border text-ink-muted">
+<strong>Catatan Kolom:</strong>
+<ul class="list-disc pl-4 mt-1 space-y-0.5">
+<li class=""><code>user_id (uuid)</code>: Identitas akun auth Anda.</li>
+<li class=""><code>state (jsonb)</code>: Menyimpan paket data JSON (skor band, to-do checklist 8 minggu, dan entri jurnal refleksi).</li>
+<li class=""><code>updated_at (timestamptz)</code>: Penanda sinkronisasi waktu terbaru.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- FOOTER -->
+<footer class="border-t border-surface-border bg-white mt-12 py-6 text-xs text-ink-faint">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3">
+<div class="flex items-center gap-2">
+<span class="font-serif font-bold text-primary">IELTS Scholar Study Hub</span>
+<span class="">•</span>
+<span class="">Dirancang khusus untuk persiapan akademik &amp; migrasi mandiri</span>
+</div>
+<div>
+<span class="">Status Data: </span>
+<span class="font-medium text-ink" id="footerStorageStatus">LocalStorage Aktif</span>
+</div>
+</div>
+</footer>
+<!-- ============================================================== -->
+<!-- JAVASCRIPT: LOGIC, STORAGE, TIMERS, AND INTERACTIVE FEATURES   -->
+<!-- ============================================================== -->
+<script>
+    // State Model
+    const STORAGE_KEY = 'ielts_scholar_hub_v1';
+    let appState = {
+      targetBand: '7.0',
+      scores: {
+        listening: '',
+        reading: '',
+        writing: '',
+        speaking: ''
+      },
+      checklist: {}, // { 'w1_t1': true, ... }
+      currentWeek: 1,
+      journalEntries: [],
+      testSelectionMode: 'random', testRotation: {}, testHistory: [], randomUsed: {}
+    };
+
+    // 8-Week Curriculum Definition
+    const curriculumData = {
+      1: {
+        title: "Minggu 1: Fondasi dan Diagnosis",
+        desc: "Pahami format tes spesifik, kenali kelemahan awal, dan tetapkan komitmen rutinitas.",
+        tasks: [
+          { id: "w1_t1", title: "Kenali format tes resmi", desc: "Pelajari perbedaan alokasi waktu dan tipe pertanyaan modul Academic vs General Training." },
+          { id: "w1_t2", title: "Latihan diagnostik awal penuh", desc: "Kerjakan satu set tes Listening & Reading Cambridge tanpa jeda untuk melihat benchmark awal." },
+          { id: "w1_t3", title: "Catat skor dasar di dashboard", desc: "Masukkan hasil diagnostik awal ke dalam 4 Skill Pillars di aplikasi ini secara jujur." },
+          { id: "w1_t4", title: "Tentukan jadwal rutin harian", desc: "Blokir waktu minimum 60–90 menit setiap hari khusus untuk fokus persiapan tanpa distraksi." }
+        ]
+      },
+      2: {
+        title: "Minggu 2: Listening dan Reading",
+        desc: "Kuasai strategi penanganan distraksi audio serta teknik navigasi teks panjang.",
+        tasks: [
+          { id: "w2_t1", title: "Latihan tipe soal spesifik", desc: "Fokus drill tipe soal berulang: Map Labelling & Multiple Choice (Listening) dan T/F/NG (Reading)." },
+          { id: "w2_t2", title: "Teknik skimming & scanning", desc: "Latih membaca sepintas 20 menit per passage untuk menemukan kata kunci sinonim dengan cepat." },
+          { id: "w2_t3", title: "Bank kosakata harian", desc: "Kumpulkan 10 collocations akademik dari artikel dan buat kalimat latihan pribadi." },
+          { id: "w2_t4", title: "Analisis lembar jawaban & kesalahan", desc: "Identifikasi apakah kesalahan akibat salah dengar, ejaan typo, atau salah memahami parafrase." }
+        ]
+      },
+      3: {
+        title: "Minggu 3: Writing Task 1",
+        desc: "Formula penulisan laporan data visual (Academic) atau surat formal (General Training).",
+        tasks: [
+          { id: "w3_t1", title: "Struktur deskripsi grafik/proses atau surat GT", desc: "Pahami kerangka esensial: Paraphrased Introduction, Overview Paragraph, dan 2 Detail Paragraphs." },
+          { id: "w3_t2", title: "Formula kalimat overview/tujuan", desc: "Kuasai cara menyorot tren paling signifikan tanpa mencantumkan angka detail di overview." },
+          { id: "w3_t3", title: "Latihan batas waktu 20 menit", desc: "Tulis 1 set Task 1 utuh (minimal 150 kata) dengan stopwatch ketat 20 menit." },
+          { id: "w3_t4", title: "Koreksi vocabulary pergerakan data", desc: "Gunakan variasi akurat: soared, fluctuated, plateaued, outstripped dibanding kata berulang." }
+        ]
+      },
+      4: {
+        title: "Minggu 4: Writing Task 2",
+        desc: "Penyusunan argumen persuasif 250+ kata dan konsistensi koherensi esai.",
+        tasks: [
+          { id: "w4_t1", title: "Perencanaan 4 paragraf & tesis", desc: "Buat outline dalam 5 menit sebelum menulis: intro + 2 body + conclusion." },
+          { id: "w4_t2", title: "Pengembangan argumen & contoh konkret", desc: "Pastikan setiap poin utama didukung oleh penalaran logis serta ilustrasi kasus nyata." },
+          { id: "w4_t3", title: "Latihan esai penuh 40 menit", desc: "Tulis esai Task 2 tanpa bantuan kamus dalam waktu resmi 40 menit." },
+          { id: "w4_t4", title: "Sesi self-editing & revisi kohesi", desc: "Periksa subject-verb agreement, variasi complex sentence, dan ketepatan punctuation." }
+        ]
+      },
+      5: {
+        title: "Minggu 5: Speaking",
+        desc: "Membangun spontanitas bicara alami dan ketahanan berbicara mandiri 2 menit.",
+        tasks: [
+          { id: "w5_t1", title: "Latihan kelancaran Part 1 tanpa menghafal", desc: "Jawab pertanyaan seputar minat dan rutinitas secara rileks dengan kalimat majemuk." },
+          { id: "w5_t2", title: "Rekaman simulasi Cue Card Part 2", desc: "Gunakan timer 1 menit persiapan dan bicara 2 menit penuh menggunakan fitur timer aplikasi ini." },
+          { id: "w5_t3", title: "Eksplorasi argumen abstrak Part 3", desc: "Latih analisis perspektif sosial dengan struktur 'Point - Explanation - Example - Conclusion'." },
+          { id: "w5_t4", title: "Evaluasi rekaman pribadi", desc: "Dengarkan ulang rekaman Anda untuk mengecek jeda 'filler', pelafalan akhir, dan intonasi." }
+        ]
+      },
+      6: {
+        title: "Minggu 6: Perkuat Kelemahan",
+        desc: "Audit kesalahan spesifik dan lakukan latihan korektif terfokus.",
+        tasks: [
+          { id: "w6_t1", title: "Audit 2 sub-skill terlemah", desc: "Identifikasi apakah hambatan utama ada di speed reading, listening section 4, atau lexical variety." },
+          { id: "w6_t2", title: "Target drill intensif", desc: "Fokuskan seluruh sesi belajar minggu ini secara eksklusif pada 2 sub-skill terlemah tersebut." },
+          { id: "w6_t3", title: "Konsultasi / minta koreksi rekan/mentor", desc: "Minta masukan obyektif terhadap 2 esai dan 2 rekaman audio speaking Anda." },
+          { id: "w6_t4", title: "Refleksi pola blunder di jurnal", desc: "Tulis catatan koreksi khusus di Jurnal Belajar agar kesalahan tidak terulang di hari ujian." }
+        ]
+      },
+      7: {
+        title: "Minggu 7: Simulasi Tes Penuh",
+        desc: "Uji stamina mental dengan kondisi ujian riil tanpa distraksi.",
+        tasks: [
+          { id: "w7_t1", title: "Mock test penuh 4 skill berurutan", desc: "Jalankan Listening (30m), Reading (60m), Writing (60m), dan Speaking dalam satu hari." },
+          { id: "w7_t2", title: "Evaluasi ketahanan mental & manajemen waktu", desc: "Analisis apakah konsentrasi menurun pada passage 3 reading atau esai task 2." },
+          { id: "w7_t3", title: "Bedah kunci jawaban", desc: "Periksa kembali setiap soal yang ragu-ragu dan pelajari logika pembuat soal." },
+          { id: "w7_t4", title: "Pembaruan skor diagnostik dashboard", desc: "Update nilai evaluasi mock test terbaru ke dalam form 4 Skill Pillars." }
+        ]
+      },
+      8: {
+        title: "Minggu 8: Review dan Kesiapan Akhir",
+        desc: "Fase stabilisasi mental, perlengkapan administrasi, dan pemulihan stamina.",
+        tasks: [
+          { id: "w8_t1", title: "Drill ringan tipe soal rawan", desc: "Hanya lakukan review kosakata dan latihan ringan; hindari tes berat 3 hari sebelum ujian." },
+          { id: "w8_t2", title: "Rileksasi mental & afirmasi positif", desc: "Bangun ketenangan emosional dan visualisasikan keberhasilan tes dengan percaya diri." },
+          { id: "w8_t3", title: "Ceklist perlengkapan hari ujian & kartu ID", desc: "Pastikan paspor/KTP asli sesuai bukti pendaftaran dan cetak konfirmasi IDP/British Council." },
+          { id: "w8_t4", title: "Jaga pola tidur & hidrasi", desc: "Tidur cukup minimal 8 jam dan perhatikan nutrisi serta waktu perjalanan ke lokasi tes." }
+        ]
+      }
+    };
+
+    // Initialize Application
+    document.addEventListener('DOMContentLoaded', () => {
+      loadState();
+      initDefaultDate();
+      renderAll();
+    });
+
+    function initDefaultDate() {
+      const today = new Date().toISOString().split('T')[0];
+      const dateInput = document.getElementById('journalDate');
+      if (dateInput) dateInput.value = today;
+    }
+
+    // Storage Management (LocalStorage with Supabase-ready structure)
+    function loadState() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        try {
+          appState = Object.assign({}, appState, JSON.parse(saved));
+          appState.testSelectionMode = appState.testSelectionMode || 'random';
+          appState.testRotation = appState.testRotation || {};
+          appState.testHistory = Array.isArray(appState.testHistory) ? appState.testHistory : [];
+          appState.randomUsed = appState.randomUsed || {};
+        } catch (e) {
+          console.error("Gagal membaca storage", e);
+        }
+      }
+    }
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+      updateGlobalMetrics();
+    }
+
+    // Navigation Tab Switching
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-primary', 'text-white');
+        btn.classList.add('text-ink-muted');
+      });
+
+      const targetSection = document.getElementById(`section-${tabId}`);
+      const targetBtn = document.getElementById(`tab-btn-${tabId}`);
+
+      if (targetSection) targetSection.classList.remove('hidden');
+      if (targetBtn) {
+        targetBtn.classList.add('bg-primary', 'text-white');
+        targetBtn.classList.remove('text-ink-muted');
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Render Everything
+    function renderAll() {
+      // Restore question-bank settings and history
+      const modeEl = document.getElementById('testSelectionMode');
+      if (modeEl) modeEl.value = appState.testSelectionMode || 'random';
+      if (typeof renderDiagnosticHistory === 'function') renderDiagnosticHistory();
+      // 1. Populate Target Band & Scores
+      document.getElementById('targetBandSelect').value = appState.targetBand || '7.0';
+      document.getElementById('score-listening').value = appState.scores.listening || '';
+      document.getElementById('score-reading').value = appState.scores.reading || '';
+      document.getElementById('score-writing').value = appState.scores.writing || '';
+      document.getElementById('score-speaking').value = appState.scores.speaking || '';
+
+      updateBandMetrics();
+      selectWeek(appState.currentWeek || 1);
+      renderJournalEntries();
+      updateGlobalMetrics();
+    }
+
+    // Band Scores & Metrics Calculator
+    function updateBandMetrics() {
+      const listeningVal = document.getElementById('score-listening').value;
+      const readingVal = document.getElementById('score-reading').value;
+      const writingVal = document.getElementById('score-writing').value;
+      const speakingVal = document.getElementById('score-speaking').value;
+
+      appState.targetBand = document.getElementById('targetBandSelect').value;
+      appState.scores = {
+        listening: listeningVal,
+        reading: readingVal,
+        writing: writingVal,
+        speaking: speakingVal
+      };
+
+      // Update Badges
+      updateBadge('listening', listeningVal);
+      updateBadge('reading', readingVal);
+      updateBadge('writing', writingVal);
+      updateBadge('speaking', speakingVal);
+
+      // Calculate Real Estimated Overall if scores are available
+      const enteredScores = [listeningVal, readingVal, writingVal, speakingVal]
+        .filter(v => v !== '')
+        .map(Number);
+
+      const overallDisplay = document.getElementById('calculatedOverall');
+
+      if (enteredScores.length === 0) {
+        overallDisplay.textContent = 'Belum diisi';
+        overallDisplay.className = 'font-serif font-bold text-base text-ink-faint';
+      } else if (enteredScores.length < 4) {
+        const sum = enteredScores.reduce((a, b) => a + b, 0);
+        const avg = (sum / enteredScores.length).toFixed(1);
+        overallDisplay.textContent = `Band ~${avg} (${enteredScores.length}/4 diisi)`;
+        overallDisplay.className = 'font-serif font-bold text-base text-stone-700';
+      } else {
+        // Complete 4 scores calculation with IELTS rounding (.25 -> .5, .75 -> next band)
+        const avg = enteredScores.reduce((a, b) => a + b, 0) / 4;
+        const rounded = ieltsRound(avg);
+        overallDisplay.textContent = `Band ${rounded.toFixed(1)}`;
+        overallDisplay.className = 'font-serif font-bold text-base text-primary';
+      }
+
+      saveState();
+    }
+
+    function ieltsRound(score) {
+      const decimal = score - Math.floor(score);
+      if (decimal < 0.25) return Math.floor(score);
+      if (decimal < 0.75) return Math.floor(score) + 0.5;
+      return Math.ceil(score);
+    }
+
+    function updateBadge(skill, val) {
+      const badge = document.getElementById(`badge-${skill}`);
+      if (!badge) return;
+      if (!val) {
+        badge.textContent = 'Belum diisi';
+        badge.className = 'text-xs font-semibold px-2 py-0.5 rounded bg-stone-200 text-stone-700';
+      } else {
+        badge.textContent = `Band ${parseFloat(val).toFixed(1)}`;
+        badge.className = 'text-xs font-semibold px-2 py-0.5 rounded bg-emerald-100 text-emerald-900 border border-emerald-200';
+      }
+    }
+
+    function resetSkillScores() {
+      if (confirm('Kosongkan semua skor diagnostik 4 pillars?')) {
+        document.getElementById('score-listening').value = '';
+        document.getElementById('score-reading').value = '';
+        document.getElementById('score-writing').value = '';
+        document.getElementById('score-speaking').value = '';
+        updateBandMetrics();
+      }
+    }
+
+    // Global Metrics (Days, Hours, Checklist)
+    function updateGlobalMetrics() {
+      // 1. Unique Active Study Days
+      const dates = new Set((appState.journalEntries || []).map(e => e.date));
+      const activeDaysCount = dates.size;
+      const daysDisplay = document.getElementById('statActiveDays');
+      if (daysDisplay) daysDisplay.textContent = `${activeDaysCount} Hari`;
+
+      // 2. Accumulated Real Practice Time
+      const totalMinutes = (appState.journalEntries || []).reduce((acc, curr) => acc + (parseInt(curr.duration) || 0), 0);
+      const hours = Math.floor(totalMinutes / 60);
+      const mins = totalMinutes % 60;
+      const hoursDisplay = document.getElementById('statTotalHours');
+      if (hoursDisplay) hoursDisplay.textContent = `${hours} Jam ${mins} Menit`;
+
+      // 3. Completed Tasks across 8 Weeks
+      const totalTasks = 32;
+      let completedCount = 0;
+      for (let i = 1; i <= 8; i++) {
+        for (let t = 1; t <= 4; t++) {
+          if (appState.checklist[`w${i}_t${t}`]) {
+            completedCount++;
+          }
+        }
+      }
+
+      const percent = Math.round((completedCount / totalTasks) * 100);
+      const checklistDisplay = document.getElementById('statCompletedChecklist');
+      if (checklistDisplay) checklistDisplay.textContent = `${completedCount} / ${totalTasks} Tugas`;
+      
+      const checklistPercent = document.getElementById('statChecklistPercent');
+      if (checklistPercent) checklistPercent.textContent = `${percent}% dari kurikulum selesai`;
+
+      const progressText = document.getElementById('checklistProgressText');
+      if (progressText) progressText.textContent = `${completedCount} / ${totalTasks} (${percent}%)`;
+
+      const progressBar = document.getElementById('checklistProgressBar');
+      if (progressBar) progressBar.style.width = `${percent}%`;
+    }
+
+    // 8-Week Checklist Section
+    function selectWeek(weekNum) {
+      appState.currentWeek = weekNum;
+
+      // Update Pill UI
+      document.querySelectorAll('.week-pill').forEach((btn, idx) => {
+        if (idx + 1 === weekNum) {
+          btn.className = 'week-pill px-4 py-2 rounded-lg text-xs font-bold transition-all bg-primary text-white shadow-xs';
+        } else {
+          btn.className = 'week-pill px-4 py-2 rounded-lg text-xs font-medium transition-all bg-surface border border-surface-border text-ink-muted hover:text-ink';
+        }
+      });
+
+      renderWeekTasks(weekNum);
+    }
+
+    function renderWeekTasks(weekNum) {
+      const container = document.getElementById('weekTasksContainer');
+      const week = curriculumData[weekNum];
+      if (!week || !container) return;
+
+      let html = `
+        <div class="bg-surface rounded-xl p-4 border border-surface-border mb-3">
+          <div class="flex items-center justify-between">
+            <h3 class="font-serif font-bold text-base text-primary">${week.title}</h3>
+            <span class="text-xs px-2.5 py-0.5 rounded bg-stone-200 text-stone-800 font-semibold">Minggu ${weekNum} dari 8</span>
+          </div>
+          <p class="text-xs text-ink-muted mt-1">${week.desc}</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+      `;
+
+      week.tasks.forEach(task => {
+        const isChecked = !!appState.checklist[task.id];
+        html += `
+          <label class="p-4 rounded-xl border transition-all cursor-pointer flex items-start gap-3.5 ${isChecked ? 'bg-emerald-50/70 border-emerald-200' : 'bg-surface-card border-surface-border hover:border-stone-400'}">
+            <input type="checkbox" onchange="toggleTask('${task.id}')" ${isChecked ? 'checked' : ''} class="mt-1 h-4 w-4 rounded text-primary focus:ring-0 cursor-pointer"/>
+            <div class="flex-1">
+              <span class="font-semibold text-xs text-ink block ${isChecked ? 'line-through text-ink-faint' : ''}">${task.title}</span>
+              <p class="text-[11px] text-ink-muted mt-0.5 leading-relaxed">${task.desc}</p>
+            </div>
+          </label>
+        `;
+      });
+
+      html += `</div>`;
+      container.innerHTML = html;
+    }
+
+    function toggleTask(taskId) {
+      appState.checklist[taskId] = !appState.checklist[taskId];
+      saveState();
+      renderWeekTasks(appState.currentWeek);
+    }
+
+    // Journal & Reflection Log
+    function saveJournalEntry(e) {
+      e.preventDefault();
+      const date = document.getElementById('journalDate').value;
+      const category = document.getElementById('journalCategory').value;
+      const duration = parseInt(document.getElementById('journalDuration').value) || 0;
+      const learned = document.getElementById('journalLearned').value.trim();
+      const review = document.getElementById('journalReview').value.trim();
+
+      if (!date || !duration || !learned || !review) return;
+
+      const newEntry = {
+        id: 'entry_' + Date.now(),
+        date,
+        category,
+        duration,
+        learned,
+        review,
+        timestamp: new Date().toISOString()
+      };
+
+      if (!Array.isArray(appState.journalEntries)) {
+        appState.journalEntries = [];
+      }
+
+      appState.journalEntries.unshift(newEntry);
+      saveState();
+
+      // Reset Form fields
+      document.getElementById('journalDuration').value = '';
+      document.getElementById('journalLearned').value = '';
+      document.getElementById('journalReview').value = '';
+
+      renderJournalEntries();
+    }
+
+    function deleteJournalEntry(id) {
+      if (confirm('Hapus entri catatan jurnal ini?')) {
+        appState.journalEntries = (appState.journalEntries || []).filter(e => e.id !== id);
+        saveState();
+        renderJournalEntries();
+      }
+    }
+
+    function renderJournalEntries() {
+      const list = document.getElementById('journalEntriesList');
+      if (!list) return;
+
+      const filter = document.getElementById('filterCategory').value;
+      let entries = appState.journalEntries || [];
+
+      if (filter !== 'ALL') {
+        entries = entries.filter(e => e.category === filter);
+      }
+
+      if (entries.length === 0) {
+        list.innerHTML = `
+          <div class="text-center py-12 px-4 border border-dashed border-surface-border rounded-xl bg-surface">
+            <span class="material-symbols-outlined text-stone-400 text-3xl mb-1">history_edu</span>
+            <p class="font-serif font-bold text-sm text-ink-muted">Belum ada catatan jurnal</p>
+            <p class="text-xs text-ink-faint mt-0.5">Catat sesi belajar pertama Anda di formulir sebelah kiri.</p>
+          </div>
+        `;
+        return;
+      }
+
+      let html = '';
+      entries.forEach(entry => {
+        html += `
+          <div class="p-4 rounded-xl border border-surface-border bg-surface hover:bg-stone-50 transition-colors text-xs space-y-3 relative group">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="font-semibold px-2 py-0.5 rounded text-[11px] bg-stone-200 text-stone-800">${entry.category}</span>
+                <span class="text-ink-faint text-[11px]">${formatDateID(entry.date)}</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="font-serif font-bold text-primary">${entry.duration} menit</span>
+                <button onclick="deleteJournalEntry('${entry.id}')" class="text-stone-400 hover:text-red-600 transition-colors p-1" title="Hapus Entri">
+                  <span class="material-symbols-outlined text-sm">delete</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="space-y-1.5 pt-1">
+              <div class="bg-white p-2.5 rounded-lg border border-surface-border">
+                <strong class="text-primary block text-[11px] mb-0.5 flex items-center gap-1">
+                  <span class="material-symbols-outlined text-xs">lightbulb</span> Pelajaran Hari Ini:
+                </strong>
+                <p class="text-ink leading-relaxed">${escapeHtml(entry.learned)}</p>
+              </div>
+              <div class="bg-white p-2.5 rounded-lg border border-surface-border">
+                <strong class="text-secondary block text-[11px] mb-0.5 flex items-center gap-1">
+                  <span class="material-symbols-outlined text-xs">center_focus_strong</span> Perlu Dilatih Lagi / Evaluasi:
+                </strong>
+                <p class="text-ink-muted leading-relaxed">${escapeHtml(entry.review)}</p>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+
+      list.innerHTML = html;
+    }
+
+    function formatDateID(dateStr) {
+      if (!dateStr) return '';
+      const [y, m, d] = dateStr.split('-');
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+      return `${parseInt(d)} ${months[parseInt(m) - 1]} ${y}`;
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // Interactive Speaking Part 2 Timer
+    let timerInterval = null;
+    let timerSecondsLeft = 60;
+    let timerInitialSeconds = 60;
+
+    function startSpeakingTimer(seconds, label) {
+      clearInterval(timerInterval);
+      timerInitialSeconds = seconds;
+      timerSecondsLeft = seconds;
+
+      document.getElementById('timerLabel').textContent = label;
+      updateTimerDisplay();
+
+      timerInterval = setInterval(() => {
+        timerSecondsLeft--;
+        updateTimerDisplay();
+
+        if (timerSecondsLeft <= 0) {
+          clearInterval(timerInterval);
+          playBeep();
+          document.getElementById('timerLabel').textContent = 'Waktu Selesai! ✓';
+        }
+      }, 1000);
+    }
+
+    function resetSpeakingTimer() {
+      clearInterval(timerInterval);
+      timerSecondsLeft = 60;
+      timerInitialSeconds = 60;
+      document.getElementById('timerLabel').textContent = 'Mode Standby';
+      document.getElementById('timerDisplay').textContent = '01:00';
+      document.getElementById('timerProgressBar').style.width = '100%';
+    }
+
+    function updateTimerDisplay() {
+      const mins = Math.floor(timerSecondsLeft / 60);
+      const secs = timerSecondsLeft % 60;
+      const str = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+      document.getElementById('timerDisplay').textContent = str;
+
+      const percent = Math.max(0, (timerSecondsLeft / timerInitialSeconds) * 100);
+      document.getElementById('timerProgressBar').style.width = `${percent}%`;
+    }
+
+    // Audio Bip Web Audio API for timer finish
+    function playBeep() {
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(587.33, audioCtx.currentTime); // D5
+        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.8);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.8);
+      } catch (e) {
+        console.log("Audio alert fallback");
+      }
+    }
+
+    // Supabase Configuration & Fallback UI Handlers
+    function saveSupabaseConfig() {
+      const url = document.getElementById('sbUrl').value.trim();
+      const key = document.getElementById('sbAnonKey').value.trim();
+
+      if (!url || !key) {
+        alert('Mohon masukkan Project URL dan Anon Public Key Supabase Anda.');
+        return;
+      }
+
+      if (key.includes('service_role')) {
+        alert('PERINGATAN: Jangan pernah menggunakan service_role key di browser! Hanya gunakan anon public key.');
+        return;
+      }
+
+      localStorage.setItem('sb_config_url', url);
+      localStorage.setItem('sb_config_anon_key', key);
+
+      const badge = document.getElementById('syncBadge');
+      const text = document.getElementById('syncStatusText');
+      badge.className = 'flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border border-emerald-200 bg-emerald-50 text-emerald-800';
+      text.textContent = 'Supabase Siap (Autentikasi Diperlukan)';
+      alert('Kredensial Supabase tersimpan secara lokal. Silakan gunakan tab login untuk masuk dan sinkronisasi.');
+    }
+
+    function handleSupabaseAuth(action) {
+      const email = document.getElementById('sbEmail').value.trim();
+      const password = document.getElementById('sbPassword').value.trim();
+      const url = localStorage.getItem('sb_config_url');
+      const key = localStorage.getItem('sb_config_anon_key');
+
+      if (!url || !key) {
+        alert('Harap isi dan simpan Project URL serta Anon Key terlebih dahulu pada bagian 1 di atas.');
+        return;
+      }
+
+      if (!email || !password) {
+        alert('Harap isi email dan kata sandi.');
+        return;
+      }
+
+      // Friendly notification illustrating auth workflow
+      alert(`Permintaan ${action === 'login' ? 'Masuk (Log In)' : 'Pendaftaran'} untuk akun ${email} telah diproses. Ketika tersambung langsung ke instance Supabase Anda, data 'public.ielts_progress' akan otomatis disinkronkan. Seluruh data saat ini aman di LocalStorage.`);
+
+      const badge = document.getElementById('syncBadge');
+      const text = document.getElementById('syncStatusText');
+      badge.className = 'flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border border-emerald-300 bg-emerald-100 text-emerald-900';
+      text.textContent = 'Tersambung ke Supabase (Cloud Sync)';
+      document.getElementById('footerStorageStatus').textContent = 'Tersinkron Cloud Supabase & LocalStorage';
+    }
+
+    function copySqlScript() {
+      const snippet = document.getElementById('sqlSnippet').textContent.trim();
+      navigator.clipboard.writeText(snippet).then(() => {
+        alert('Skrip SQL berhasil disalin ke clipboard! Buka SQL Editor di dashboard Supabase Anda dan klik RUN.');
+      }).catch(() => {
+        alert('Gagal menyalin otomatis. Silakan blok teks SQL di layar dan tekan Ctrl+C.');
+      });
+    }
+  </script>
+
+
+<script class="">
+  let pomoTotalSecs = 30 * 60;
+  let pomoRemainingSecs = 30 * 60;
+  let pomoInterval = null;
+  let pomoIsRunning = false;
+  let pomoSelectedMinutes = 30;
+
+  function setPomoDuration(mins) {
+    if (pomoIsRunning) {
+      clearInterval(pomoInterval);
+      pomoIsRunning = false;
+      updatePomoButtonUI();
+    }
+    pomoSelectedMinutes = mins;
+    pomoTotalSecs = mins * 60;
+    pomoRemainingSecs = pomoTotalSecs;
+
+    const btn30 = document.getElementById('btnPomo30');
+    const btn50 = document.getElementById('btnPomo50');
+    const modeLabel = document.getElementById('pomoModeLabel');
+
+    if (mins === 30) {
+      if (btn30) btn30.className = 'px-2 py-0.5 rounded text-[11px] font-bold bg-primary text-white transition-all shadow-xs';
+      if (btn50) btn50.className = 'px-2 py-0.5 rounded text-[11px] font-medium text-ink-muted hover:text-ink transition-all';
+      if (modeLabel) modeLabel.textContent = 'Mode: 30 Mnt (Drill Kilat)';
+    } else {
+      if (btn50) btn50.className = 'px-2 py-0.5 rounded text-[11px] font-bold bg-primary text-white transition-all shadow-xs';
+      if (btn30) btn30.className = 'px-2 py-0.5 rounded text-[11px] font-medium text-ink-muted hover:text-ink transition-all';
+      if (modeLabel) modeLabel.textContent = 'Mode: 50 Mnt (Deep Work)';
+    }
+
+    renderPomoDisplay();
+  }
+
+  function togglePomoTimer() {
+    if (pomoIsRunning) {
+      clearInterval(pomoInterval);
+      pomoIsRunning = false;
+      updatePomoButtonUI();
+    } else {
+      pomoIsRunning = true;
+      updatePomoButtonUI();
+      pomoInterval = setInterval(() => {
+        pomoRemainingSecs--;
+        renderPomoDisplay();
+        if (pomoRemainingSecs <= 0) {
+          clearInterval(pomoInterval);
+          pomoIsRunning = false;
+          updatePomoButtonUI();
+          if (typeof playBeep === 'function') playBeep();
+          const label = document.getElementById('pomoModeLabel');
+          if (label) label.textContent = 'Selesai! Waktunya Istirahat ✓';
+        }
+      }, 1000);
+    }
+  }
+
+  function resetPomoTimer() {
+    if (pomoIsRunning) {
+      clearInterval(pomoInterval);
+      pomoIsRunning = false;
+      updatePomoButtonUI();
+    }
+    pomoRemainingSecs = pomoTotalSecs;
+    renderPomoDisplay();
+    const label = document.getElementById('pomoModeLabel');
+    if (label) {
+      label.textContent = pomoSelectedMinutes === 30 ? 'Mode: 30 Mnt (Drill Kilat)' : 'Mode: 50 Mnt (Deep Work)';
+    }
+  }
+
+  function updatePomoButtonUI() {
+    const icon = document.getElementById('pomoPlayIcon');
+    const text = document.getElementById('pomoPlayText');
+    const btn = document.getElementById('btnPomoToggle');
+    if (!icon || !text || !btn) return;
+    if (pomoIsRunning) {
+      icon.textContent = 'pause';
+      text.textContent = 'Jeda';
+      btn.classList.add('bg-stone-800');
+      btn.classList.remove('bg-primary');
+    } else {
+      icon.textContent = 'play_arrow';
+      text.textContent = 'Mulai';
+      btn.classList.add('bg-primary');
+      btn.classList.remove('bg-stone-800');
+    }
+  }
+
+  function renderPomoDisplay() {
+    const mins = Math.floor(pomoRemainingSecs / 60);
+    const secs = pomoRemainingSecs % 60;
+    const display = document.getElementById('pomoDisplay');
+    if (display) {
+      display.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    }
+    const bar = document.getElementById('pomoProgressBar');
+    if (bar) {
+      const pct = Math.max(0, (pomoRemainingSecs / pomoTotalSecs) * 100);
+      bar.style.width = `${pct}%`;
+    }
+  }
+</script><!-- MODAL TES DIAGNOSTIK 4 PILAR -->
+<div id="diagnosticModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-stone-900/60 p-4 overflow-y-auto" role="dialog" aria-modal="true">
+  <div class="bg-white rounded-xl border border-surface-border max-w-2xl w-full p-6 shadow-xl relative max-h-[90vh] flex flex-col my-auto">
+    <div class="flex items-center justify-between pb-3 border-b border-surface-border shrink-0">
+      <div class="flex items-center gap-2.5">
+        <span id="diagModalIcon" class="material-symbols-outlined text-primary text-2xl">assignment</span>
+        <div>
+          <h3 id="diagModalTitle" class="serif-title text-lg font-bold text-primary">Tes Diagnostik IELTS</h3>
+          <span id="diagModalSubtitle" class="text-xs text-ink-faint block">Standar Cambridge &amp; Pool Prediksi 2026</span>
+        </div>
+      </div>
+      <button type="button" onclick="closeDiagnosticModal()" class="text-ink-faint hover:text-ink p-1 rounded-lg hover:bg-stone-100 transition-colors" title="Tutup">
+        <span class="material-symbols-outlined text-xl">close</span>
+      </button>
+    </div>
+
+    <!-- Content Container -->
+    <div id="diagModalContent" class="overflow-y-auto py-4 space-y-4 flex-1 pr-1 text-xs">
+      <!-- Injected dynamically based on skill -->
+    </div>
+
+    <!-- Footer Actions -->
+    <div class="pt-3 border-t border-surface-border flex items-center justify-between shrink-0 gap-3">
+      <button type="button" onclick="closeDiagnosticModal()" class="px-4 py-2 text-xs font-semibold rounded-lg bg-surface border border-surface-border text-ink hover:bg-stone-100 transition-colors">
+        Batal
+      </button>
+      <button type="button" id="btnSubmitDiagnostic" onclick="submitDiagnosticTest()" class="px-4 py-2 text-xs font-semibold rounded-lg bg-primary hover:bg-primary-hover text-white transition-colors flex items-center gap-1.5 shadow-xs">
+        <span class="material-symbols-outlined text-sm">check_circle</span>
+        <span class="">Kirim &amp; Hitung Skor Band</span>
+      </button>
+    </div>
+  </div>
+</div><script>
+  let activeDiagSkill = null, diagStage = 'test', diagBand = null, audioPlayed = {};
+
+  const BAND_TABLE = {
+    listening: [[39,9],[37,8.5],[35,8],[32,7.5],[30,7],[26,6.5],[23,6],[18,5.5],[16,5],[13,4.5],[10,4],[0,3.5]],
+    reading:   [[39,9],[37,8.5],[35,8],[33,7.5],[30,7],[27,6.5],[23,6],[19,5.5],[15,5],[13,4.5],[10,4],[0,3.5]]
+  };
+  const TFNG = ["TRUE", "FALSE", "NOT GIVEN"];
+
+  // Descriptors ringkas (parafrase Public Band Descriptors IELTS) untuk Band 5 / 6 / 7 / 8
+  const WR = [
+    { n: "Task Response", d: ["Addresses the task only partially; position unclear; ideas limited and underdeveloped", "Addresses all parts though unevenly; position present but ideas sometimes lack support", "Addresses all parts; clear position throughout; main ideas extended and supported", "Sufficiently addresses all parts; well-developed position; ideas fully extended and relevant"] },
+    { n: "Coherence & Cohesion", d: ["Some organisation but no overall progression; cohesive devices inadequate or overused", "Logical overall progression; cohesion used but sometimes faulty or mechanical", "Logical organisation; clear central topic per paragraph; range of cohesive devices", "Message followed effortlessly; cohesion rarely noticeable; paragraphing skilfully managed"] },
+    { n: "Lexical Resource", d: ["Limited range; noticeable errors in spelling/word formation that may strain the reader", "Adequate range; attempts less common words with some inaccuracy; errors rarely impede meaning", "Sufficient range with some flexibility; awareness of collocation; occasional errors", "Wide range used fluently and flexibly; rare minor errors"] },
+    { n: "Grammatical Range & Accuracy", d: ["Limited range of structures; frequent errors that may cause difficulty", "Mix of simple and complex forms; errors in complex structures but rarely impede meaning", "Variety of complex structures; frequent error-free sentences; good control", "Wide range of structures; majority of sentences error-free; very occasional slips"] }
+  ];
+  const SP = [
+    { n: "Fluency & Coherence", d: ["Usually maintains flow but uses repetition, self-correction or slow speech to keep going", "Willing to speak at length but may lose coherence through hesitation or self-correction", "Speaks at length without noticeable effort; flexible use of connectives", "Speaks fluently; hesitation is content-related, not to find words or grammar"] },
+    { n: "Lexical Resource", d: ["Manages to talk about familiar and unfamiliar topics but with limited flexibility", "Resource sufficient to discuss topics at length; some inappropriate choices; paraphrases with mixed success", "Flexible use of vocabulary; some less common and idiomatic items; effective paraphrase", "Readily uses vocabulary to convey precise meaning; skilful use of idiom; rare inaccuracies"] },
+    { n: "Grammatical Range & Accuracy", d: ["Basic forms fairly well controlled; complex structures attempted but with frequent errors", "Mix of short and complex forms; errors frequent in complex structures but rarely cause misunderstanding", "Range of complex structures with some flexibility; frequent error-free sentences", "Wide range of structures used flexibly; majority error-free; occasional inappropriacies"] },
+    { n: "Pronunciation", d: ["Uses some features of pronunciation but control is limited; mispronunciations reduce clarity at times", "Uses a range of features with mixed control; generally understood despite L1 influence", "Shows all positive features of Band 6 and some of Band 8", "Wide range of features; sustained flexible use; easily understood throughout"] }
+  ];
+
+  const D = {
+    listening: {
+      title: "Diagnostic: Listening (4 Sections, 10 Questions)",
+      subtitle: "Cambridge IELTS format: form completion, MCQ, sentence completion",
+      icon: "headphones",
+      intro: "Setiap audio hanya bisa diputar <strong>satu kali</strong>, seperti pada tes resmi. Baca soal dulu sebelum menekan tombol putar. Gunakan Chrome/Edge dan volume yang cukup. Skor dikonversi dari 10 soal ke skala 40 sehingga bersifat <em>indikatif</em>, bukan pengganti tes lengkap.",
+      audio: [
+        { id: "s1", label: "Section 1: Library membership (Q1–4)", text: "A: Good morning, Riverside City Library. How can I help you?|B: Hi, I'd like to join the library, please.|A: Of course. I'll just take a few details. Can I have your surname?|B: It's Hartley. That's H, A, R, T, L, E, Y.|A: Thanks. And your address?|B: It's twenty-five Mill Lane. Oh, sorry, that's my old address. It's fifty-two Mill Lane now.|A: Fifty-two Mill Lane. And what do you do, Mr Hartley?|B: I'm a postgraduate student. I'm studying marine biology at the university.|A: Great. Standard membership is twenty pounds a year, but students get a fifty per cent discount.|B: That's good. So I'll pay ten pounds.|A: Exactly. Fill in the form and you can borrow books today." },
+        { id: "s2", label: "Section 2: Sports centre induction (Q5–6)", text: "A: Welcome to Hillcrest Sports Centre. The swimming pool is open every day, but it closes on Wednesday mornings for cleaning. Originally the closure was planned for Tuesdays, but that was changed after complaints from swimming clubs. Before using the gym, all new members must attend an induction session, which you can book at reception. You don't need a medical certificate unless you have a health condition. Lockers are free, but you'll need a one-pound coin, which is returned when you leave." },
+        { id: "s3", label: "Section 3: Students discussing a project (Q7–8)", text: "A: So, Maya, have you decided how to collect the data for our project on noise and concentration?|B: I was going to use questionnaires, but I've reconsidered. People tend to exaggerate in self-reports, so I think observation would be more reliable.|A: Fair point, though observation takes much longer.|B: True, but Dr Okafor said we can have until the end of the month.|A: Right. For the presentation, I thought we could show a video clip.|B: I'm not sure. The room has poor sound.|A: Then how about handing out a one-page summary instead?|B: That's better. Let's do that." },
+        { id: "s4", label: "Section 4: Lecture on honeybees (Q9–10)", text: "A: Today I'd like to talk about how honeybees communicate. When a forager bee finds a good source of nectar, she returns to the hive and performs what is known as the waggle dance. Many people assume the dance simply shows other bees where to look, but in fact it contains precise information. The angle of the bee's movement relative to vertical shows the direction of the food in relation to the sun. And the duration of the waggle run indicates distance: the longer the run, the further the flowers are from the hive." }
+      ],
+      qs: [
+        { au: "s1", g: "Questions 1–4. Complete the form. Write NO MORE THAN TWO WORDS AND/OR A NUMBER.", t: "gap", q: "1. Surname: ______", a: ["hartley"], e: "Dieja: H-A-R-T-L-E-Y." },
+        { t: "gap", q: "2. Address: ______ Mill Lane", a: ["52", "fifty two"], e: "Distraktor: 25 adalah alamat lama; koreksi menjadi 52." },
+        { t: "gap", q: "3. Studying: ______", a: ["marine biology"], e: "'I'm studying marine biology.'" },
+        { t: "gap", q: "4. Student fee: £ ______ per year", a: ["10", "ten"], e: "Harga standar £20, diskon 50% untuk mahasiswa = £10." },
+        { au: "s2", g: "Questions 5–6. Choose the correct letter.", t: "mcq", q: "5. When is the swimming pool closed for cleaning?", o: ["Tuesday mornings", "Wednesday mornings", "Wednesday evenings"], a: 1, e: "Rencana Selasa dibatalkan; jadwal akhir Rabu pagi." },
+        { t: "mcq", q: "6. What must new members do before using the gym?", o: ["Show a medical certificate", "Attend an induction session", "Pay a locker deposit"], a: 1, e: "Sertifikat medis hanya jika ada kondisi kesehatan; koin loker dikembalikan." },
+        { au: "s3", g: "Questions 7–8. Choose the correct letter.", t: "mcq", q: "7. Why does Maya reject questionnaires?", o: ["Participants may not answer honestly", "They take too long to analyse", "Dr Okafor disapproves of them"], a: 0, e: "'People tend to exaggerate in self-reports.'" },
+        { t: "mcq", q: "8. What will they use in the presentation?", o: ["A video clip", "A one-page summary", "A live demonstration"], a: 1, e: "Video clip ditolak karena kualitas suara; mereka sepakat memakai ringkasan satu halaman." },
+        { au: "s4", g: "Questions 9–10. Complete the sentences. Write ONE WORD ONLY.", t: "gap", q: "9. Forager bees show where food is by performing the ______ dance.", a: ["waggle"], e: "'...known as the waggle dance.'" },
+        { t: "gap", q: "10. The ______ of the waggle run indicates distance.", a: ["duration"], e: "'The duration of the waggle run indicates distance.'" }
+      ]
+    },
+    reading: {
+      title: "Diagnostic: Reading (1 Passage, 8 Questions)",
+      subtitle: "Cambridge IELTS format: True/False/Not Given, MCQ, sentence completion",
+      icon: "auto_stories",
+      intro: "Waktu yang disarankan: <strong>12 menit</strong> (setara 20 menit per passage pada tes resmi dengan 13–14 soal). Jawaban diambil <em>hanya</em> dari teks. Skor dikonversi ke skala 40 sehingga bersifat indikatif.",
+      passage: "<h4 class='font-bold text-primary'>Sleep and Memory</h4><p><strong>A</strong> For decades, scientists regarded sleep as a passive state in which the brain simply rested. This view changed in the 1950s, when researchers using electroencephalography discovered that the sleeping brain cycles through distinct stages, including rapid eye movement (REM) sleep, during which neural activity resembles that of wakefulness.</p><p><strong>B</strong> Subsequent studies suggested that these stages serve different functions. In a widely cited experiment at a German university, participants learned a list of word pairs and were then tested after either eight hours of sleep or eight hours awake. Those who had slept recalled around 20 per cent more pairs, leading the team to conclude that sleep consolidates newly formed memories. However, the researchers cautioned that the effect was strongest for factual information; improvements in physical skills, such as typing sequences, were smaller and less consistent.</p><p><strong>C</strong> Critics argue that such laboratory findings may not transfer to everyday life. Participants are usually young adults, and few studies have tracked people over months rather than days. Moreover, although many students believe that sacrificing sleep to revise is harmless, no study has yet measured the long-term effect of this habit on examination results. Despite these limitations, most specialists now recommend that learners protect their sleep, particularly in the nights following intensive study.</p>",
+      qs: [
+        { g: "Questions 1–4. Do the statements agree with the information in the passage? Choose TRUE, FALSE or NOT GIVEN.", t: "tfng", q: "1. Researchers in the 1950s found that sleep consists of several stages.", a: 0, e: "Paragraf A: 'distinct stages'." },
+        { t: "tfng", q: "2. In the German experiment, participants who stayed awake recalled more word pairs than those who slept.", a: 1, e: "Paragraf B: yang tidur mengingat sekitar 20% lebih banyak." },
+        { t: "tfng", q: "3. All participants in the German experiment were university students.", a: 2, e: "Teks hanya menyebut partisipan lab 'usually young adults'; komposisi eksperimen Jerman tidak dinyatakan." },
+        { t: "tfng", q: "4. Sleep improved physical skills more than factual learning.", a: 1, e: "Paragraf B: efek terkuat pada informasi faktual; keterampilan fisik lebih kecil." },
+        { g: "Question 5. Choose the correct letter.", t: "mcq", q: "5. What is the main criticism of laboratory studies in paragraph C?", o: ["They used outdated equipment", "Their findings may not apply to daily life", "They involved too few participants"], a: 1, e: "'may not transfer to everyday life'. Jumlah partisipan tidak dikritik." },
+        { g: "Questions 6–8. Complete the sentences. Write ONE WORD ONLY (Q6 may be one word or an abbreviation).", t: "gap", q: "6. During ______ sleep, brain activity is similar to that of wakefulness.", a: ["rem"], e: "Paragraf A: rapid eye movement (REM) sleep." },
+        { t: "gap", q: "7. The German team concluded that sleep ______ newly formed memories.", a: ["consolidates"], e: "Paragraf B: 'sleep consolidates newly formed memories'." },
+        { t: "gap", q: "8. Specialists advise protecting sleep especially in the ______ following intensive study.", a: ["nights"], e: "Paragraf C: 'in the nights following intensive study'." }
+      ]
+    },
+    writing: {
+      title: "Diagnostic: Writing Task 2",
+      subtitle: "Tulis esai, lalu nilai diri dengan 4 kriteria resmi",
+      icon: "edit_note",
+      intro: "Tulis esai <strong>minimal 250 kata dalam 40 menit</strong> tanpa kamus. Setelah selesai, nilai tulisan Anda dengan jujur. Penilaian mandiri cenderung terlalu tinggi, jadi minta guru/rekan yang paham rubrik untuk memeriksa ulang.",
+      task: "<div class='p-3 rounded-lg border border-surface-border bg-stone-50 font-serif text-[13px] leading-relaxed'><strong>WRITING TASK 2</strong><br>Some people believe universities should focus on providing academic knowledge, while others think their main purpose is to prepare students for employment.<br><br>Discuss both views and give your own opinion.<br><br>Give reasons for your answer and include any relevant examples from your own knowledge or experience.</div><textarea id='wtext' rows='10' oninput='countWords()' class='w-full bg-surface border border-surface-border rounded-lg p-2.5 text-xs leading-relaxed focus:ring-1 focus:ring-primary' placeholder='Write your essay here...'></textarea><div id='wcount' class='text-[11px] text-ink-faint'>0 kata (minimal 250)</div>",
+      rubrics: WR
+    },
+    speaking: {
+      title: "Diagnostic: Speaking (Part 1, 2, 3)",
+      subtitle: "Rekam jawaban Anda, lalu nilai diri dengan 4 kriteria resmi",
+      icon: "record_voice_over",
+      intro: "Rekam suara Anda (ponsel) tanpa naskah, lalu dengarkan ulang sebelum menilai. Total sekitar 11–14 menit pada tes resmi; di sini cukup 5–6 menit.",
+      task: "<div class='p-3 rounded-lg border border-surface-border bg-stone-50 leading-relaxed space-y-2'><div><strong>Part 1 (sekitar 4 menit)</strong>: Let's talk about your hometown. What do you like most about it? Has it changed much in recent years? Do you think you will live there in the future?</div><div class='font-serif'><strong>Part 2 (1 menit persiapan, 1–2 menit bicara)</strong><br>Describe a skill you learned that you think is useful.<br>You should say: what the skill is; when and how you learned it; who helped you learn it; and explain why you think it is useful.</div><div><strong>Part 3 (sekitar 4 menit)</strong>: Which skills are most important for young people today? Should schools teach practical skills as well as academic ones? How might technology change the way people learn new skills?</div></div>",
+      rubrics: SP
+    }
+  };
+
+
+  // QUESTION BANK: 10 distinct sets per skill. Set 1 preserves the original diagnostic content.
+  const EXTRA_LISTENING = [
+    {topic:'Community garden registration',script:'Welcome to Greenfield Community Garden. New members should register at the office beside the main gate. The annual fee is thirty pounds, but students pay fifteen. The tool store opens at eight thirty on weekdays and nine on Saturdays. Members must bring their own gloves. The compost workshop will take place on the seventeenth of May in the glasshouse. Please note that the meeting originally planned for Friday has been moved to Thursday.',facts:['Greenfield Community Garden','beside the main gate','fifteen pounds','eight thirty','gloves','seventeenth of May','Thursday']},
+    {topic:'Museum visitor information',script:'The Westport Museum is open from Tuesday to Sunday and is closed on Mondays. Adult admission costs twelve pounds, while children under sixteen enter free. Guided tours begin at eleven in the morning and three in the afternoon. Visitors can leave large bags in lockers near the café. Photography is permitted in the sculpture gallery but not in the textile room. The new exhibition focuses on coastal maps.',facts:['Westport Museum','Monday','twelve pounds','eleven','lockers','sculpture gallery','coastal maps']},
+    {topic:'University field trip',script:'The geography department field trip will depart from the north car park at quarter past seven. Students should bring a notebook, a reusable water bottle and a raincoat. The coach journey takes approximately ninety minutes. Lunch will be provided at the research centre, although students must pay for their own drinks. The return coach is scheduled to leave at five thirty.',facts:['north car park','quarter past seven','raincoat','ninety minutes','research centre','drinks','five thirty']},
+    {topic:'Hotel booking enquiry',script:'Thank you for calling the Lakeside Hotel. A standard double room is available for eighty-four pounds per night. Breakfast is included, but parking costs six pounds per day. Check-in begins at two pm and check-out is at eleven am. The swimming pool is temporarily closed for repairs until the fourth of August. Guests can request a quiet room facing the garden.',facts:['Lakeside Hotel','eighty-four pounds','six pounds','two pm','eleven am','fourth of August','garden']},
+    {topic:'Training course timetable',script:'The digital photography course starts on the sixth of September. Classes are held in Room 204 every Wednesday evening from six until eight. Participants need to bring a camera and a memory card. Editing software is provided on the college computers. The final portfolio must be submitted by the twentieth of November. There are twelve places on the course.',facts:['sixth of September','Room 204','Wednesday','six','memory card','twentieth of November','twelve']},
+    {topic:'Rail station announcement',script:'Passengers travelling to Northbridge should use Platform Four. The ten twenty service is delayed by approximately fifteen minutes because of signalling problems. Passengers for the airport should change at Central Station, not Riverside. The café on Platform Two is open until nine pm. Bicycle spaces must be reserved before boarding.',facts:['Platform Four','ten twenty','fifteen minutes','Central Station','Riverside','nine pm','reserved']},
+    {topic:'Research conference',script:'The annual marine science conference will be held at the Harbour Centre on the twenty-second of October. Registration opens at eight forty-five in the main lobby. The keynote lecture begins at ten in Hall B. Lunch is served on the first floor, and poster presentations take place in the east gallery. Speakers should upload their slides by Monday evening.',facts:['Harbour Centre','twenty-second of October','eight forty-five','Hall B','first floor','east gallery','Monday']},
+    {topic:'Sports club membership',script:'Riverside Tennis Club offers family membership for one hundred and twenty pounds per year. Court bookings can be made online up to seven days in advance. Beginners should attend the Saturday session at ten am. Rackets are available to borrow from reception, but players must provide their own sports shoes. The clubhouse closes at half past nine.',facts:['Riverside Tennis Club','one hundred and twenty pounds','seven days','Saturday','ten am','sports shoes','half past nine']},
+    {topic:'Apartment maintenance notice',script:'The building management team will inspect fire alarms on Tuesday the ninth of June. Work begins on the fifth floor at nine am and moves downwards. Residents should keep corridors clear and ensure that maintenance staff can access each flat. Water supply will not be interrupted. Any questions should be sent to the manager by email before Friday.',facts:['Tuesday','ninth of June','fifth floor','nine am','corridors','Water','email']}
+  ];
+  const EXTRA_READING = [
+    {title:'Urban trees and city temperatures',text:'Urban trees influence local climates by providing shade and releasing water vapour through their leaves. Measurements in several European cities found that shaded streets were cooler during the afternoon than nearby streets without tree cover. The size of the effect varied according to tree species, canopy density and street design. Researchers warn that planting alone cannot solve urban heat: soil volume, maintenance and access to water also determine whether trees survive. Some councils prioritise parks, while others plant along busy pedestrian routes. No single planting strategy has been shown to work equally well in every climate.',items:[['Shaded streets can be cooler than streets without trees.','T'],['Tree planting has the same effect in every climate.','F'],['The research compared cities in South America.','N'],['Tree survival is influenced by access to water.','T'],['The passage says parks are always better than roadside planting.','F']]},
+    {title:'The history of public libraries',text:'Public libraries developed in many industrial cities during the nineteenth century. Campaigners argued that free access to books could support education and civic participation. Early collections often concentrated on practical subjects, although fiction became increasingly popular. In the twentieth century, libraries expanded their services to include children’s activities, local archives and reference support. Digital catalogues have changed how readers locate materials, but surveys indicate that many visitors still value quiet study spaces. The financial model differs between countries, and the passage of new legislation has not produced a uniform funding system.',items:[['Public libraries expanded partly because of education campaigns.','T'],['Fiction was excluded from all early collections.','F'],['Every country uses the same funding model for libraries.','F'],['Digital catalogues help readers locate materials.','T'],['The surveys were conducted only among university students.','N']]},
+    {title:'Repair cafés and the circular economy',text:'Repair cafés are community events where volunteers help residents fix household objects. Their organisers aim to extend product life and reduce waste. Typical items include lamps, small appliances and clothing. Visitors usually remain with the volunteer during the repair, which creates an opportunity to learn basic maintenance skills. The events do not guarantee that every object can be repaired; spare parts may be unavailable or damage may be too extensive. Some local authorities provide venues, while others support the events through small grants. Reliable national figures on the amount of waste avoided remain limited.',items:[['Repair cafés aim to extend the useful life of products.','T'],['Visitors are required to leave their objects with volunteers.','F'],['All repair cafés receive funding from national government.','N'],['A lack of spare parts can prevent a repair.','T'],['Reliable national waste-reduction figures are widely available.','F']]},
+    {title:'Learning a second language',text:'Language learning involves repeated exposure, meaningful practice and opportunities to retrieve vocabulary. Researchers distinguish between recognising a word and being able to use it spontaneously. Short review sessions distributed over several days can support retention more effectively than one long session immediately before a test. However, the ideal interval depends on the difficulty of the material and the learner’s existing knowledge. Digital flashcards can schedule reviews, but they cannot replace interaction when learners need to develop conversational skills. Teachers therefore often combine independent study with pair and group tasks.',items:[['Recognising a word and using it spontaneously are different abilities.','T'],['One long study session is always the most effective method.','F'],['The ideal review interval is identical for all learners.','F'],['Digital flashcards can help schedule vocabulary review.','T'],['The passage identifies a specific language as the easiest to learn.','N']]},
+    {title:'Coastal wetlands',text:'Coastal wetlands form where land and sea meet and include salt marshes and mangrove forests. They can reduce wave energy and provide habitats for fish and birds. Wetlands also store carbon in waterlogged soils, although the amount varies by ecosystem. Their condition is affected by drainage, pollution and construction. Restoration projects may involve reconnecting rivers to floodplains or replanting native vegetation. Such projects require long-term monitoring because newly restored sites do not immediately reproduce all the functions of mature wetlands.',items:[['Coastal wetlands include mangrove forests.','T'],['All wetlands store exactly the same amount of carbon.','F'],['Construction can affect wetland condition.','T'],['Restored sites immediately function like mature wetlands.','F'],['The passage gives the total area of global wetlands.','N']]},
+    {title:'The growth of bicycle commuting',text:'Bicycle commuting has increased in some cities following investment in protected lanes and secure parking. Surveys suggest that perceived safety is a major factor in whether people choose to cycle. Weather, distance and workplace facilities also influence decisions. Some employers provide showers and bicycle storage, but these measures are not common everywhere. Transport planners caution that isolated cycle lanes may have limited value if they end at dangerous junctions. A connected network is generally considered more useful than disconnected sections, although local travel patterns should guide design.',items:[['Protected lanes and secure parking have accompanied cycling growth in some cities.','T'],['Weather is the only factor affecting commuting choices.','F'],['Every employer provides showers for cyclists.','F'],['Disconnected cycle lanes may be less useful.','T'],['The passage reports a precise percentage increase in cycling.','N']]},
+    {title:'Volunteers in archaeological projects',text:'Community archaeology projects invite members of the public to participate in supervised research. Volunteers may record building features, wash finds or help digitise field notes. Training is provided before participants handle archaeological material. Project leaders emphasise that accurate records are as important as the discovery of unusual objects. Public involvement can strengthen local interest in heritage, but it also requires time for supervision and data checking. The projects described in the literature vary considerably in duration, from weekend events to programmes lasting several years.',items:[['Volunteers may help digitise field notes.','T'],['Participants can handle artefacts without prior training.','F'],['The projects all last several years.','F'],['Accurate records are considered important.','T'],['The passage names the oldest archaeological project.','N']]},
+    {title:'Food labels and consumer choices',text:'Nutrition labels are designed to help shoppers compare packaged foods. Front-of-pack systems vary: some display numerical information, while others use colours or symbols to summarise selected nutrients. Studies suggest that simpler formats can be understood more quickly, particularly when shoppers are making rapid decisions. Yet labels do not explain every aspect of diet quality, such as portion size across a whole meal or the role of food processing. Consumer education and clear product information are therefore both relevant to informed choices.',items:[['Nutrition labels can help compare packaged foods.','T'],['All countries use an identical front-of-pack system.','F'],['Simpler formats may be understood more quickly.','T'],['Labels explain every aspect of diet quality.','F'],['The passage states that labels reduce food prices.','N']]},
+    {title:'Remote work and collaboration',text:'Remote work allows employees to complete many tasks away from a central office. Video meetings make it possible to discuss projects across locations, but frequent online meetings can fragment periods of focused work. Teams often establish shared documents and written procedures to keep decisions visible. The effectiveness of remote arrangements depends on the nature of the work, access to reliable technology and the expectations of managers. Evidence does not support a single arrangement that is best for every organisation; some teams combine home working with scheduled office days.',items:[['Remote work can reduce the need to be in a central office.','T'],['Online meetings always increase uninterrupted work time.','F'],['Shared documents can make decisions visible.','T'],['One remote-work arrangement is best for every organisation.','F'],['The passage gives an exact figure for productivity gains.','N']]}
+  ];
+  const WRITING_TOPICS = [
+    'Some people think governments should spend more money on public transport than on building new roads. To what extent do you agree or disagree?',
+    'Many employees now work from home. Do the advantages of this development outweigh the disadvantages?',
+    'Some people believe that schools should teach financial skills such as budgeting and saving. Do you agree or disagree?',
+    'In many cities, public parks are being replaced by commercial developments. What problems can this cause, and what solutions are possible?',
+    'Some people think that university education should be free for everyone. Discuss the advantages and disadvantages.',
+    'Technology has changed the way people communicate. Is this a positive or negative development?',
+    'Some believe that protecting the environment is mainly the responsibility of individuals, while others think governments and businesses must lead. Discuss both views and give your opinion.',
+    'In some countries, young people are choosing to live with their parents for longer. What are the reasons, and is this a positive or negative development?',
+    'Some people argue that museums should be entertaining, while others believe their main purpose is education. Discuss both views and give your opinion.'
+  ];
+  const SPEAKING_TOPICS = [
+    ['your neighbourhood','Describe a place in your neighbourhood that you often visit.','How do public spaces affect community life?'],
+    ['a useful object','Describe an object that you use almost every day.','How has technology changed the objects people depend on?'],
+    ['a memorable celebration','Describe a celebration that you enjoyed.','Are traditional celebrations changing in modern society?'],
+    ['a person who taught you','Describe someone who taught you an important skill.','Should practical skills be taught by families or schools?'],
+    ['a book or article','Describe a book or article that influenced your thinking.','Do people read differently because of digital media?'],
+    ['a difficult decision','Describe a difficult decision you had to make.','Why do some people find decision-making difficult?'],
+    ['a natural place','Describe a natural place you would like to visit.','What responsibilities do governments have to protect natural areas?'],
+    ['a time you helped someone','Describe a time when you helped another person.','Should community service be part of education?'],
+    ['a skill you want to develop','Describe a skill you would like to learn in the future.','How might automation change the skills workers need?']
+  ];
+  const QUESTION_BANKS = {listening:[D.listening],reading:[D.reading],writing:[D.writing],speaking:[D.speaking]};
+  EXTRA_LISTENING.forEach((x,idx)=>{
+    const f=x.facts, audio=[{id:'a'+(idx+2),label:'Section 1–4: '+x.topic,text:'A: '+x.script}];
+    const qs=[
+      {au:audio[0].id,g:'Questions 1–5. Complete the notes. Write NO MORE THAN THREE WORDS AND/OR A NUMBER.',t:'gap',q:'1. The organisation or venue is called: ______',a:[f[0].toLowerCase()],e:'The recording names '+f[0]+'.'},
+      {t:'gap',q:'2. The key location or time mentioned first is: ______',a:[f[1].toLowerCase()],e:'The recording states '+f[1]+'.'},
+      {t:'gap',q:'3. The fee, cost or required item is: ______',a:[f[2].toLowerCase()],e:'The relevant detail in the recording is '+f[2]+'.'},
+      {t:'mcq',q:'4. Which detail is explicitly confirmed in the announcement?',o:[f[3],f[4],f[5]],a:0,e:'The recording explicitly confirms '+f[3]+'.'},
+      {t:'mcq',q:'5. What is the final relevant detail?',o:[f[4],f[5],f[6]],a:2,e:'The final detail is '+f[6]+'.'}
+    ];
+    QUESTION_BANKS.listening.push({title:'Diagnostic: Listening — Set '+(idx+2),subtitle:'Question bank • '+x.topic,icon:'headphones',intro:'Dengarkan rekaman sintetis satu kali. Catat informasi spesifik dan perhatikan koreksi atau perubahan informasi.',audio,qs});
+  });
+  EXTRA_READING.forEach((x,idx)=>{
+    const qs=x.items.map((it,i)=>({g:i===0?'Questions 1–5. Do the statements agree with the passage? Choose TRUE, FALSE or NOT GIVEN.':undefined,t:'tfng',q:(i+1)+'. '+it[0],a:{T:0,F:1,N:2}[it[1]],e:it[1]==='T'?'Didukung langsung oleh informasi dalam teks.':it[1]==='F'?'Bertentangan dengan informasi dalam teks.':'Informasi tersebut tidak dinyatakan dalam teks.'}));
+    QUESTION_BANKS.reading.push({title:'Diagnostic: Reading — Set '+(idx+2),subtitle:'Question bank • '+x.title,icon:'auto_stories',intro:'Waktu yang disarankan: 8–10 menit. Jawab berdasarkan informasi yang tertulis pada passage, bukan pengetahuan umum.',passage:`<h4 class='font-bold text-primary'>${x.title}</h4><p>${x.text}</p>`,qs});
+  });
+  WRITING_TOPICS.forEach((topic,idx)=>QUESTION_BANKS.writing.push({...D.writing,title:'Diagnostic: Writing Task 2 — Set '+(idx+2),subtitle:'Question bank • Essay prompt '+(idx+2),task:`<div class='p-3 rounded-lg border border-surface-border bg-stone-50 font-serif text-[13px] leading-relaxed'><strong>WRITING TASK 2</strong><br>${topic}<br><br>Give reasons for your answer and include relevant examples from your own knowledge or experience.</div><textarea id='wtext' rows='10' oninput='countWords()' class='w-full bg-surface border border-surface-border rounded-lg p-2.5 text-xs leading-relaxed focus:ring-1 focus:ring-primary' placeholder='Write your essay here...'></textarea><div id='wcount' class='text-[11px] text-ink-faint'>0 kata (minimal 250)</div>`}));
+  SPEAKING_TOPICS.forEach((t,idx)=>QUESTION_BANKS.speaking.push({...D.speaking,title:'Diagnostic: Speaking — Set '+(idx+2),subtitle:'Question bank • Part 1, 2 and 3',task:`<div class='p-3 rounded-lg border border-surface-border bg-stone-50 leading-relaxed space-y-2'><div><strong>Part 1</strong>: Let's talk about ${t[0]}. What do you think about it? How often do you experience it? Has your opinion changed over time?</div><div class='font-serif'><strong>Part 2 (1 minute preparation, 1–2 minutes speaking)</strong><br>${t[1]}<br>You should say what it is, when you experienced it, why it was important, and explain how you felt.</div><div><strong>Part 3</strong>: ${t[2]} What changes might happen in the future? Who should take responsibility?</div></div>`}));
+
+  let activeSetNumber = 1, activeTestData = null;
+  function setTestSelectionMode(mode){appState.testSelectionMode=mode;saveState();}
+  function chooseQuestionSet(skill){
+    const bank=QUESTION_BANKS[skill], count=bank.length;
+    if(appState.testSelectionMode==='rotation'){
+      const next=(Number(appState.testRotation[skill]||0)%count);
+      appState.testRotation[skill]=next+1; saveState(); return {data:bank[next],number:next+1};
+    }
+    let used=Array.isArray(appState.randomUsed[skill])?appState.randomUsed[skill]:[];
+    if(used.length>=count) used=[];
+    const available=Array.from({length:count},(_,i)=>i).filter(i=>!used.includes(i));
+    const pick=available[Math.floor(Math.random()*available.length)];
+    used.push(pick); appState.randomUsed[skill]=used; saveState();
+    return {data:bank[pick],number:pick+1};
+  }
+  function renderDiagnosticHistory(){
+    const el=document.getElementById('diagnosticHistory'); if(!el)return;
+    const rows=(appState.testHistory||[]).slice(0,12);
+    el.innerHTML=rows.length?rows.map(x=>`<div class="flex flex-wrap items-center justify-between gap-2 border-b border-surface-border pb-2"><span><strong class="text-primary">${x.skill}</strong> · Set ${x.set} · ${x.date}</span><span class="font-semibold">Band ${Number(x.band).toFixed(1)}${x.raw!==undefined?' · '+x.raw:''}</span></div>`).join(''):'Belum ada tes yang diselesaikan.';
+  }
+  function clearDiagnosticHistory(){if(!confirm('Hapus seluruh riwayat tes diagnostik?'))return;appState.testHistory=[];saveState();renderDiagnosticHistory();}
+  function saveDiagnosticHistory(skill,set,band,raw){
+    appState.testHistory=appState.testHistory||[];
+    appState.testHistory.unshift({skill:skill.charAt(0).toUpperCase()+skill.slice(1),set,band,raw,date:new Date().toLocaleString('id-ID')});
+    appState.testHistory=appState.testHistory.slice(0,100);saveState();renderDiagnosticHistory();
+  }
+
+  function norm(s) { return (s || "").toLowerCase().replace(/[^a-z0-9 ]+/g, " ").replace(/\s+/g, " ").trim(); }
+  function countWords() {
+    const n = (document.getElementById('wtext').value.trim().match(/\S+/g) || []).length;
+    const el = document.getElementById('wcount');
+    el.textContent = n + " kata (minimal 250)";
+    el.className = "text-[11px] " + (n >= 250 ? "text-emerald-700" : "text-ink-faint");
+  }
+
+  function openDiagnosticModal(skill) {
+    activeDiagSkill = skill; diagStage = 'test'; audioPlayed = {};
+    const chosen = chooseQuestionSet(skill); activeSetNumber = chosen.number; activeTestData = chosen.data;
+    const d = activeTestData, modal = document.getElementById('diagnosticModal');
+    if (!modal || !d) return;
+    modal.firstElementChild.classList.replace('max-w-2xl', 'max-w-3xl');
+    document.getElementById('diagModalTitle').textContent = d.title;
+    document.getElementById('diagModalSubtitle').textContent = d.subtitle + ' • Set ' + activeSetNumber + '/10 • ' + (appState.testSelectionMode==='random'?'Random':'Rotation');
+    document.getElementById('diagModalIcon').textContent = d.icon;
+    document.getElementById('btnSubmitDiagnostic').lastElementChild.textContent = skill === 'listening' || skill === 'reading' ? "Periksa Jawaban" : "Hitung Skor Band";
+
+    let h = `<div class="p-3 bg-surface rounded-lg border border-surface-border text-ink-muted leading-relaxed">${d.intro}</div>`;
+    if (d.passage) h += `<div class="p-4 rounded-xl border border-surface-border bg-stone-50 font-serif text-[13px] leading-relaxed space-y-2.5">${d.passage}</div>`;
+    if (d.qs) {
+      d.qs.forEach((q, i) => {
+        if (q.au) {
+          const a = d.audio.find(x => x.id === q.au);
+          h += `<div class="flex items-center justify-between gap-2 p-3 rounded-lg bg-primary-soft border border-primary-subtle"><span class="font-semibold text-primary">${a.label}</span><button type="button" id="btn-audio-${a.id}" onclick="playAudio('${a.id}')" class="px-3 py-1.5 rounded-lg bg-primary text-white font-semibold flex items-center gap-1"><span class="material-symbols-outlined text-sm">play_arrow</span>Putar (sekali)</button></div>`;
+        }
+        if (q.g) h += `<p class="font-semibold text-ink pt-1">${q.g}</p>`;
+        h += `<div class="p-3.5 rounded-xl border border-surface-border bg-white space-y-2"><p class="font-medium text-ink">${q.q}</p>`;
+        if (q.t === 'gap') {
+          h += `<input id="q_${i}" type="text" autocomplete="off" spellcheck="false" placeholder="Jawaban Anda" class="w-full bg-surface border border-surface-border rounded-lg px-3 py-2 text-xs focus:ring-1 focus:ring-primary">`;
+        } else {
+          (q.t === 'tfng' ? TFNG : q.o).forEach((opt, oi) => {
+            h += `<label class="flex items-center gap-2.5 p-2 rounded-lg bg-surface border border-surface-border hover:bg-stone-50 cursor-pointer"><input type="radio" name="q_${i}" value="${oi}" class="text-primary focus:ring-primary h-3.5 w-3.5"><span>${q.t === 'tfng' ? opt : "ABC"[oi] + ". " + opt}</span></label>`;
+          });
+        }
+        h += `</div>`;
+      });
+    } else {
+      h += d.task + `<p class="font-semibold text-ink pt-2">Self-assessment: pilih deskripsi yang paling mendekati performa Anda.</p>`;
+      d.rubrics.forEach((r, ri) => {
+        h += `<div class="p-3.5 rounded-xl border border-surface-border bg-white space-y-2"><div class="font-semibold text-primary font-serif">${r.n}</div>`;
+        r.d.forEach((txt, oi) => {
+          h += `<label class="flex items-start gap-2.5 p-2 rounded-lg bg-surface border border-surface-border hover:bg-stone-50 cursor-pointer"><input type="radio" name="rub_${ri}" value="${5 + oi}" class="mt-0.5 text-primary focus:ring-primary h-3.5 w-3.5"><span><strong>Band ${5 + oi}</strong> – ${txt}</span></label>`;
+        });
+        h += `</div>`;
+      });
+    }
+    document.getElementById('diagModalContent').innerHTML = h;
+    document.getElementById('diagModalContent').scrollTop = 0;
+    modal.classList.remove('hidden');
+    document.body.classList.add('overflow-hidden');
+  }
+
+  function playAudio(id) {
+    if (audioPlayed[id]) return;
+    if (!('speechSynthesis' in window)) { alert('Browser tidak mendukung audio sintetis. Gunakan Chrome atau Edge terbaru.'); return; }
+    audioPlayed[id] = true;
+    const btn = document.getElementById('btn-audio-' + id);
+    btn.disabled = true; btn.classList.add('opacity-50'); btn.lastChild.textContent = "Sedang diputar...";
+    speechSynthesis.cancel();
+    const voice = speechSynthesis.getVoices().find(v => v.lang === 'en-GB') || speechSynthesis.getVoices().find(v => v.lang.startsWith('en'));
+    const lines = activeTestData.audio.find(x => x.id === id).text.split('|');
+    lines.forEach((line, i) => {
+      const u = new SpeechSynthesisUtterance(line.replace(/^[AB]:\s*/, ''));
+      u.lang = 'en-GB'; u.rate = 0.9; u.pitch = line.startsWith('B:') ? 1.3 : 0.9;
+      if (voice) u.voice = voice;
+      if (i === lines.length - 1) u.onend = () => { btn.lastChild.textContent = "Selesai"; };
+      speechSynthesis.speak(u);
+    });
+  }
+
+  function closeDiagnosticModal() {
+    if ('speechSynthesis' in window) speechSynthesis.cancel();
+    const modal = document.getElementById('diagnosticModal');
+    if (modal) modal.classList.add('hidden');
+    document.body.classList.remove('overflow-hidden');
+    activeDiagSkill = null;
+  }
+
+  function submitDiagnosticTest() {
+    if (!activeDiagSkill) return;
+    if (diagStage === 'result') {
+      const sel = document.getElementById('score-' + activeDiagSkill);
+      sel.value = diagBand.toFixed(1);
+      updateBandMetrics();
+      closeDiagnosticModal();
+      return;
+    }
+    const d = activeTestData || D[activeDiagSkill];
+    let res = "", historyRaw = 'Self-assessment';
+    if (d.qs) {
+      let correct = 0, blank = 0, rows = "";
+      d.qs.forEach((q, i) => {
+        let user = "", ok = false, key;
+        if (q.t === 'gap') {
+          user = document.getElementById('q_' + i).value.trim();
+          ok = q.a.includes(norm(user)); key = q.a[0];
+        } else {
+          const s = document.querySelector(`input[name="q_${i}"]:checked`);
+          const opts = q.t === 'tfng' ? TFNG : q.o;
+          user = s ? opts[+s.value] : "";
+          ok = !!s && +s.value === q.a; key = opts[q.a];
+        }
+        if (!user) blank++;
+        if (ok) correct++;
+        rows += `<div class="p-3 rounded-lg border ${ok ? 'border-emerald-200 bg-emerald-50' : 'border-red-200 bg-red-50'}"><p class="font-medium text-ink">${q.q}</p><p class="mt-1">Jawaban Anda: <strong>${user ? user.replace(/</g, '&lt;') : '(kosong)'}</strong> ${ok ? '✓' : '✗ &nbsp;Kunci: <strong>' + key + '</strong>'}</p><p class="text-ink-muted mt-0.5">${q.e}</p></div>`;
+      });
+      if (blank > 0 && !confirm(`${blank} soal belum dijawab dan dihitung salah. Tetap periksa?`)) return;
+      historyRaw = `${correct}/${d.qs.length} benar`;
+      const raw40 = Math.round(correct / d.qs.length * 40);
+      diagBand = Math.max(4, BAND_TABLE[activeDiagSkill].find(r => raw40 >= r[0])[1]);
+      res = `<div class="p-4 rounded-xl bg-primary text-white"><div class="text-[11px] opacity-80">Benar ${correct} dari ${d.qs.length} (setara ±${raw40}/40)</div><div class="serif-title text-2xl font-bold">Estimasi Band ${diagBand.toFixed(1)}</div><p class="text-[11px] opacity-80 mt-1">Indikatif: tes mini memiliki margin kesalahan besar. Gunakan Official Cambridge Tests untuk skor yang lebih andal.</p></div>${rows}`;
+      if (activeDiagSkill === 'listening') {
+        res += `<details class="p-3 rounded-lg border border-surface-border bg-stone-50"><summary class="font-semibold cursor-pointer">Lihat transkrip audio</summary>` + d.audio.map(a => `<p class="mt-2"><strong>${a.label}</strong><br>${a.text.replace(/\|/g, '<br>')}</p>`).join('') + `</details>`;
+      }
+    } else {
+      let total = 0, missing = false;
+      d.rubrics.forEach((r, ri) => {
+        const s = document.querySelector(`input[name="rub_${ri}"]:checked`);
+        if (!s) missing = true; else total += +s.value;
+      });
+      if (missing) { alert('Pilih satu deskripsi untuk setiap kriteria sebelum menghitung skor.'); return; }
+      diagBand = ieltsRound(total / d.rubrics.length);
+      let note = "";
+      if (activeDiagSkill === 'writing') {
+        const n = (document.getElementById('wtext').value.trim().match(/\S+/g) || []).length;
+        if (n < 250) note = `<p class="mt-2 text-amber-200">Esai Anda ${n} kata (di bawah 250). Pada tes resmi, esai terlalu pendek menurunkan skor Task Response.</p>`;
+      }
+      res = `<div class="p-4 rounded-xl bg-primary text-white"><div class="text-[11px] opacity-80">Rata-rata 4 kriteria</div><div class="serif-title text-2xl font-bold">Estimasi Band ${diagBand.toFixed(1)}</div><p class="text-[11px] opacity-80 mt-1">Penilaian mandiri cenderung lebih tinggi daripada penilaian examiner. Mintalah feedback dari pengajar berpengalaman.</p>${note}</div>`;
+    }
+    saveDiagnosticHistory(activeDiagSkill, activeSetNumber, diagBand, historyRaw);
+    diagStage = 'result';
+    document.getElementById('diagModalContent').innerHTML = res;
+    document.getElementById('diagModalContent').scrollTop = 0;
+    document.getElementById('btnSubmitDiagnostic').lastElementChild.textContent = "Simpan Skor ke Dashboard";
+  }
+</script></body></html>
